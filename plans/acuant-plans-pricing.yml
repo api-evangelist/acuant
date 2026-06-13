@@ -1,0 +1,81 @@
+name: Acuant Plans and Pricing
+description: >-
+  Acuant (now part of GBG) offers identity verification and document
+  authentication APIs through enterprise licensing and per-transaction
+  pricing models. Software SDKs are available for purchase through the
+  Acuant Store, while cloud API services (AssureID Connect, FRM, Passive
+  Liveness) are offered under enterprise agreements with custom pricing
+  based on transaction volume. Prospective customers contact Acuant sales
+  for licensing.
+specificationVersion: '0.1'
+plans:
+  - name: IDScan OCR SDK
+    description: >-
+      On-premise software license for the IDScan OCR SDK enabling driver's
+      license, ID card, and passport barcode and OCR data capture. Available
+      via the Acuant Store with direct purchase.
+    url: https://store.acuant.com/products/idscosdk-sw
+    type: SoftwareLicense
+    pricing:
+      model: one-time
+      notes: >-
+        License pricing available via direct purchase on Acuant Store.
+        Contact +1 866.520.1234 ext 3 for software and bundled solutions.
+
+  - name: AcuantGo Mobile SDK Trial
+    description: >-
+      Trial access to the AcuantGo Mobile SDK for iOS and Android.
+      Developers can access the SDK to evaluate ID capture and document
+      processing capabilities before committing to a production license.
+    url: https://www.acuantcorp.com/developers/acuantgo-mobile-app-sdk-trial
+    type: Trial
+    pricing:
+      model: free-trial
+      notes: >-
+        Trial credentials issued upon request. Contact sales@acuantcorp.com
+        to obtain a license key for production access.
+
+  - name: AssureID Connect Enterprise
+    description: >-
+      Enterprise access to AssureID Connect REST API for document
+      authentication and data extraction. Supports over 3,400 global
+      document types. Pricing is custom, based on transaction volume
+      and deployment region (USA, EU, AUS).
+    url: https://www.acuant.com/document-centric-verification
+    type: Enterprise
+    pricing:
+      model: per-transaction
+      notes: >-
+        Custom enterprise pricing. Contact Acuant sales for a quote.
+        Credentials issued as username/password pairs for HTTP Basic Auth.
+        Regional endpoints available.
+
+  - name: FRM + Passive Liveness Enterprise
+    description: >-
+      Enterprise access to the Face Recognition (FRM) and Passive Liveness
+      Detection APIs for biometric verification. ISO/IEC 30107-3 compliant
+      with iBeta PAD Level 1 and Level 2 certification. Pricing based on
+      volume of biometric verification transactions.
+    url: https://www.acuant.com/biometric-identity-verification/
+    type: Enterprise
+    pricing:
+      model: per-transaction
+      notes: >-
+        Custom enterprise pricing. Subscription ID required. Regional
+        endpoints for USA (frm.acuant.net, us.passlive.acuant.net),
+        EU, and AUS.
+
+  - name: Bundled Identity Platform
+    description: >-
+      Full-platform bundle combining AssureID document authentication,
+      FRM face matching, Passive Liveness detection, Ozone identity
+      trust, and mobile/web SDKs. Targeted at enterprise customers
+      requiring end-to-end digital identity workflows for KYC and AML
+      compliance.
+    url: https://www.acuant.com/integrations/
+    type: Enterprise
+    pricing:
+      model: custom
+      notes: >-
+        Contact Acuant/GBG sales for bundled enterprise agreement.
+        Support included at support.acuant.com.

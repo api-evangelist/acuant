@@ -1,0 +1,118 @@
+name: Acuant FinOps Framework
+description: >-
+  FinOps guidance for managing cost and consumption of Acuant identity
+  verification and document authentication APIs. Acuant (GBG) pricing is
+  enterprise-negotiated on a per-transaction or subscription basis, so
+  cost visibility requires tracking transaction volumes at the application
+  level and reviewing usage reports with the Acuant account team. Key
+  cost drivers are document verification transactions (AssureID Connect),
+  biometric face match calls (FRM), and liveness detection assessments.
+specificationVersion: '1.0'
+framework: FOCUS
+domains:
+  - domain: Cost Visibility
+    description: >-
+      Acuant does not provide a self-serve cost dashboard. Customers must
+      work with their Acuant/GBG account manager to obtain transaction
+      usage reports. Internally, teams should instrument API calls to
+      count document, face match, and liveness transactions by service,
+      region, and application.
+    recommendations:
+      - Track POST /Document/Instance calls for AssureID document transactions
+      - Count POST /api/v1/facematch calls for FRM face match spend
+      - Log liveness API invocations via Passive Liveness endpoint
+      - Tag API calls by environment (preview vs. production) to prevent
+        unintended production billing during development
+
+  - domain: Cost Allocation
+    description: >-
+      Allocate Acuant costs to business units or products by routing
+      API calls through internal gateways that tag requests with cost
+      center metadata. Subscription IDs issued per product line provide
+      a natural allocation boundary.
+    recommendations:
+      - Request separate subscription IDs per business unit or product
+      - Use regional endpoints (usa/eu/aus) to allocate by geography
+      - Log subscription ID alongside each API call in internal telemetry
+
+  - domain: Cost Optimization
+    description: >-
+      Reduce Acuant transaction costs through smart orchestration. Not
+      all verification steps need to run for every user; risk-based
+      routing can defer expensive biometric checks to higher-risk flows.
+    recommendations:
+      - Use AssureID's Optimized Workflow to parallelize image uploads
+        and classification, reducing overall latency and retry costs
+      - Cache ACAS bearer tokens and check token.isValid() before each
+        call to avoid unnecessary re-authentication round trips
+      - Validate image quality (sharpness > 50, glare score ~100) on
+        the client side before submitting to AssureID to reduce rejected
+        transactions and retry spend
+      - Use preview endpoints (preview.assureid.acuant.net,
+        preview.acas.acuant.net) for all testing and development to
+        avoid billing production quota
+      - Route low-risk sessions to AssureID Simple Workflow only;
+        reserve Ozone identity trust lookups for high-risk transactions
+
+  - domain: Budgeting and Forecasting
+    description: >-
+      Forecast Acuant costs by modeling monthly transaction volumes
+      per API service against negotiated unit rates. Volumes scale
+      with user onboarding events.
+    recommendations:
+      - Baseline document verification volume from new user registration
+        and KYC workflow counts
+      - Model face match and liveness transactions as a ratio of
+        document verifications (not all flows require biometrics)
+      - Request volume discount tiers from Acuant/GBG account team
+        for committed annual transaction bundles
+      - Build alerts on internal API call counters when approaching
+        licensed transaction limits
+
+  - domain: Vendor Management
+    description: >-
+      Acuant is now a GBG brand. Enterprise agreements are managed
+      through GBG account management. Support is routed through
+      support.acuant.com. Hardware ID scanner purchases are handled
+      via store.acuant.com.
+    contacts:
+      - role: Sales / Licensing
+        url: https://www.acuant.com/contact/
+        phone: '+1 866.520.1234'
+      - role: Technical Support
+        url: https://support.acuant.com
+      - role: Hardware / SDK Store
+        url: https://store.acuant.com
+    recommendations:
+      - Review enterprise license annually against actual transaction
+        volume to right-size committed tiers
+      - Maintain a contact with the GBG account team to receive advance
+        notice of SDK deprecations (e.g., JavascriptWebSDKV11 end of
+        support in May 2026) which may require re-platforming spend
+      - Monitor status.acuant.net for outages that may affect SLA credits
+
+  - domain: Unit Economics
+    description: >-
+      Key unit cost metrics for Acuant API consumption. All rates are
+      negotiated; list prices are not publicly available.
+    metrics:
+      - metric: Cost per Document Verification
+        description: >-
+          Cost per AssureID Connect transaction (POST /Document/Instance
+          through GET /Document/{instanceId}). Primary KYC onboarding cost.
+        driver: transaction volume, document type complexity
+      - metric: Cost per Face Match
+        description: >-
+          Cost per FRM /api/v1/facematch call comparing document photo
+          to live selfie.
+        driver: transaction volume
+      - metric: Cost per Liveness Check
+        description: >-
+          Cost per Passive Liveness API call returning LivenessAssessment.
+        driver: transaction volume
+      - metric: Blended Cost per Verified Identity
+        description: >-
+          Total Acuant spend (document + face match + liveness) divided
+          by number of successfully verified identities. Primary FinOps
+          health metric for identity onboarding workflows.
+        driver: conversion rate, retry rate, step-up frequency

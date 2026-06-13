@@ -1,0 +1,82 @@
+name: Acuant Rate Limits
+description: >-
+  Acuant does not publicly publish specific rate limit thresholds for its
+  identity verification and document authentication APIs. Rate limits are
+  governed by enterprise license agreements. The AssureID Connect API,
+  FRM Face Recognition API, Passive Liveness API, and ACAS token service
+  are all accessed over HTTPS with authentication. Limits on throughput,
+  concurrent sessions, and transaction volumes are negotiated as part of
+  enterprise contracts. Preview/sandbox environments impose tighter limits
+  than production deployments.
+specificationVersion: '0.1'
+rateLimits:
+  - name: AssureID Connect Document Transactions
+    description: >-
+      Rate limits for document instance creation, image upload, and
+      result retrieval via the AssureID Connect REST API. Error code 437
+      is returned when a document instance is in a complete or error state
+      and cannot receive further processing requests.
+    api: AssureID Connect
+    baseURL: https://services.assureid.net
+    limits:
+      - scope: per-subscription
+        notes: >-
+          Transaction volume limits are set per subscription and defined
+          in the enterprise license agreement. No publicly documented
+          requests-per-second or daily cap. Contact support at
+          support.acuant.com for subscription-level quotas.
+    headers:
+      - name: Authorization
+        description: HTTP Basic Auth with base64-encoded credentials (username:password)
+    errors:
+      - code: 401
+        meaning: Unauthorized — invalid or missing credentials
+      - code: 430
+        meaning: Service operation error — invalid arguments
+      - code: 437
+        meaning: Document instance in complete or error state; no further processing allowed
+      - code: 500
+        meaning: Internal server error
+      - code: 503
+        meaning: Service unavailable
+
+  - name: FRM Face Recognition
+    description: >-
+      Rate limits for POST /api/v1/facematch requests to the Face
+      Recognition and Matching API. Image payload size is constrained
+      to 80% JPEG compression for face images submitted.
+    api: FRM
+    baseURL: https://frm.acuant.net
+    limits:
+      - scope: per-subscription
+        notes: >-
+          Limits defined in enterprise agreement. Subscription ID is
+          required in each request. No publicly documented RPS cap.
+
+  - name: Passive Liveness Detection
+    description: >-
+      Rate limits for liveness assessment submissions. Each call submits
+      a base64-encoded image with a subscription ID and bearer token.
+      Response includes LivenessAssessment and Score.
+    api: Passive Liveness
+    baseURL: https://us.passlive.acuant.net
+    limits:
+      - scope: per-subscription
+        notes: >-
+          Limits governed by enterprise license. Preview environment
+          available at preview.passlive.acuant.net for testing.
+
+  - name: ACAS Token Service
+    description: >-
+      Token issuance rate limits for the Acuant Cloud Authentication
+      Service. Tokens are JWTs with built-in expiry; the SDK checks
+      token.isValid() before reuse to avoid unnecessary re-authentication
+      calls.
+    api: ACAS
+    baseURL: https://us.acas.acuant.net
+    limits:
+      - scope: per-credential
+        notes: >-
+          Token refresh is managed client-side via SDK validity checks.
+          No published token issuance rate cap. Regional endpoints:
+          us.acas.acuant.net, eu.acas.acuant.net, aus.acas.acuant.net.

@@ -1,0 +1,149 @@
+aid: acuant
+name: Acuant
+description: >-
+  Acuant is an identity verification and document authentication platform
+  offering REST APIs and SDKs for ID capture, document authentication,
+  biometric face matching, and passive liveness detection. Originally founded
+  in 1999 as Card Scanning Solutions and acquired by GB Group plc (GBG) in
+  2021, Acuant's services support AML, KYC, and identity proofing workflows
+  across financial services, healthcare, hospitality, and government sectors.
+  Core APIs include AssureID Connect for document processing, FRM for facial
+  recognition and face matching, Passive Liveness for presentation attack
+  detection, ACAS for cloud authentication, and Ozone for digital identity
+  trust. SDKs are available for iOS, Android, and JavaScript web applications.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/acuant/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Identity Verification
+  - Document Authentication
+  - Biometrics
+  - Face Matching
+  - Liveness Detection
+  - KYC
+  - AML
+  - ID Capture
+apis:
+  - aid: acuant:assureid-connect
+    name: Acuant AssureID Connect API
+    description: >-
+      REST API for document identity verification. Supports creating document
+      transactions, uploading multi-spectral images, extracting data fields,
+      and retrieving authentication results for over 3,400 global document
+      types including driver's licenses, passports, and national IDs. Uses
+      HTTP Basic authentication over HTTPS.
+    humanURL: https://www.acuant.com/document-centric-verification
+    baseURL: https://services.assureid.net
+    tags:
+      - Document Authentication
+      - ID Verification
+      - OCR
+      - Data Extraction
+    properties:
+      - type: Documentation
+        url: https://www.acuant.com/document-centric-verification
+      - type: IntegrationGuide
+        url: https://usermanual.wiki/Document/AssureID20Connect20Web20Service20Integration20Guide.153605132/help
+
+  - aid: acuant:frm
+    name: Acuant FRM Face Recognition API
+    description: >-
+      Face recognition and matching API that compares two facial images and
+      returns a match score. Used alongside document verification to confirm
+      the person presenting an ID matches a live selfie capture. Regional
+      endpoints available for USA, EU, and AUS.
+    humanURL: https://www.acuant.com/biometric-identity-verification/
+    baseURL: https://frm.acuant.net
+    tags:
+      - Face Recognition
+      - Biometrics
+      - Face Matching
+    properties:
+      - type: Documentation
+        url: https://www.acuant.com/biometric-identity-verification/
+
+  - aid: acuant:passive-liveness
+    name: Acuant Passive Liveness API
+    description: >-
+      Liveness detection API that evaluates a selfie image for presentation
+      attacks including printed photos, masks, deepfakes, and face-swap
+      attacks. Returns LivenessAssessment (Live, NotLive, PoorQuality, Error)
+      and a confidence score. ISO/IEC 30107-3 compliant with iBeta PAD Level
+      1 and Level 2 certification.
+    humanURL: https://www.acuant.com/biometric-identity-verification/
+    baseURL: https://us.passlive.acuant.net
+    tags:
+      - Liveness Detection
+      - Biometrics
+      - Anti-Spoofing
+      - Presentation Attack Detection
+    properties:
+      - type: Documentation
+        url: https://www.acuant.com/biometric-identity-verification/
+
+  - aid: acuant:acas
+    name: Acuant ACAS (Cloud Authentication Service) API
+    description: >-
+      Acuant Cloud Authentication Service (ACAS) provides authentication
+      token management for initializing and authorizing SDK and API sessions.
+      Supports Basic Auth (Base64) credential exchange and bearer token
+      issuance. Regional endpoints available for USA, EU, AUS, and preview
+      environments.
+    humanURL: https://www.acuant.com/integrations/
+    baseURL: https://us.acas.acuant.net
+    tags:
+      - Authentication
+      - Token Management
+      - Identity
+    properties:
+      - type: Documentation
+        url: https://www.acuant.com/integrations/
+
+  - aid: acuant:ozone
+    name: Acuant Ozone API
+    description: >-
+      Digital identity trust API derived from Acuant's acquisition of Ozone
+      from Mount Airy Group. Provides additional identity intelligence and
+      trust scoring layered on top of document and biometric verification
+      results.
+    humanURL: https://www.acuant.com/integrations/
+    baseURL: https://ozone.acuant.net
+    tags:
+      - Identity Trust
+      - Fraud Prevention
+      - Identity Intelligence
+    properties:
+      - type: Documentation
+        url: https://www.acuant.com/integrations/
+
+common:
+  - type: Website
+    url: https://www.acuant.com
+  - type: Documentation
+    url: https://www.acuant.com/integrations/
+  - type: GitHubOrg
+    url: https://github.com/Acuant
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/acuant
+  - type: Blog
+    url: https://www.acuant.com/blog/
+  - type: Pricing
+    url: https://store.acuant.com/
+  - type: StatusPage
+    url: https://status.acuant.net/
+  - type: Support
+    url: https://support.acuant.com
+  - type: X
+    url: https://x.com/acuantcorp
+  - type: Plans
+    url: plans/acuant-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/acuant-rate-limits.yml
+  - type: FinOps
+    url: finops/acuant-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
