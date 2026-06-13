@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: Acuant ACAS (Cloud Authentication Service) API
+  description: >-
+    Acuant Cloud Authentication Service (ACAS) provides authentication token
+    management for initializing and authorizing SDK and API sessions. Supports
+    Basic Auth (Base64) credential exchange and bearer token issuance for use
+    with other Acuant APIs. Regional endpoints available for USA, EU, AUS,
+    and preview environments.
+  version: '1.0'
+  contact:
+    name: Acuant Support
+    url: https://support.acuant.com
+  x-api-id: acuant:acas
+servers:
+  - url: https://us.acas.acuant.net
+    description: USA Production
+  - url: https://eu.acas.acuant.net
+    description: EU Production
+  - url: https://aus.acas.acuant.net
+    description: AUS Production
+  - url: https://preview.acas.acuant.net
+    description: Preview / Sandbox
+security:
+  - BasicAuth: []
+tags:
+  - name: Authentication
+    description: Token issuance and validation
+paths:
+  /api/v1/token:
+    post:
+      operationId: getAuthToken
+      summary: Obtain bearer token
+      description: >-
+        Exchanges Basic Auth credentials (Base64-encoded username:password)
+        for a bearer token. The returned token is used to authenticate
+        requests to other Acuant APIs (FRM, Passive Liveness, etc.).
+        Tokens are time-limited and should be refreshed before expiry.
+      tags:
+        - Authentication
+      security:
+        - BasicAuth: []
+      responses:
+        '200':
+          description: Bearer token issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+              example:
+                token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+                tokenKey: "Bearer"
+                tokenType: "JWT"
+                expiresIn: 1800
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Account inactive or subscription expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/token/validate:
+    get:
+      operationId: validateToken
+      summary: Validate bearer token
+      description: Checks whether a bearer token is still valid and not expired.
+      tags:
+        - Authentication
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Token is valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenValidationResult'
+        '401':
+          description: Token is invalid or expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        HTTP Basic authentication. Credentials encoded as Base64("username:password")
+        in the Authorization header.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT bearer token obtained from the /api/v1/token endpoint.
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: Error code
+        Message:
+          type: string
+          description: Error description
+
+    TokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT bearer token for use with other Acuant APIs
+        tokenKey:
+          type: string
+          description: Token prefix (typically "Bearer")
+          example: Bearer
+        tokenType:
+          type: string
+          description: Token format
+          example: JWT
+        expiresIn:
+          type: integer
+          description: Token validity duration in seconds
+          example: 1800
+
+    TokenValidationResult:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+          description: Whether the token is currently valid
+        expiresAt:
+          type: string
+          format: date-time
+          description: Token expiration timestamp

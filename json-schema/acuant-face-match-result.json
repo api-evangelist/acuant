@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/acuant/main/json-schema/acuant-face-match-result.json",
+  "title": "Acuant Face Match Result",
+  "description": "Schema for the response from the Acuant FRM Face Recognition and Matching API.",
+  "type": "object",
+  "properties": {
+    "Score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Match confidence score (0-100). Higher values indicate greater likelihood that both images depict the same person."
+    },
+    "IsMatch": {
+      "type": "boolean",
+      "description": "Whether the match score exceeds the configured threshold for a positive match."
+    },
+    "TransactionId": {
+      "type": "string",
+      "description": "Unique identifier for this face match transaction."
+    },
+    "Error": {
+      "type": ["string", "null"],
+      "description": "Error message if face detection or matching failed."
+    },
+    "ErrorCode": {
+      "type": ["integer", "null"],
+      "description": "Numeric error code if an error occurred."
+    }
+  },
+  "required": ["Score", "IsMatch"]
+}

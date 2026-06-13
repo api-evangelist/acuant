@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/acuant/main/json-schema/acuant-document.json",
+  "title": "Acuant Document",
+  "description": "Schema for an Acuant document processing result including classification, extracted fields, and authentication results.",
+  "type": "object",
+  "properties": {
+    "InstanceId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the document processing instance"
+    },
+    "Classification": {
+      "$ref": "#/$defs/DocumentClassification"
+    },
+    "Fields": {
+      "type": "array",
+      "description": "Extracted document data fields",
+      "items": {
+        "$ref": "#/$defs/DocumentField"
+      }
+    },
+    "Images": {
+      "type": "array",
+      "description": "Document images with quality metrics",
+      "items": {
+        "$ref": "#/$defs/DocumentImage"
+      }
+    },
+    "AuthenticationSensitivity": {
+      "type": "integer",
+      "description": "Authentication sensitivity level used for processing"
+    }
+  },
+  "$defs": {
+    "DocumentClassification": {
+      "type": "object",
+      "description": "Document type classification result",
+      "properties": {
+        "Type": {
+          "$ref": "#/$defs/DocumentType"
+        },
+        "ClassificationDetails": {
+          "type": "object",
+          "description": "Additional classification details for front and back"
+        }
+      }
+    },
+    "DocumentType": {
+      "type": "object",
+      "description": "Identified document type",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Document type name (e.g., 'Passport', 'Driver License')"
+        },
+        "Class": {
+          "type": "string",
+          "description": "Document class (Identification, Passport, Travel Document, etc.)"
+        },
+        "IssuerCode": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-3 country code of issuer"
+        },
+        "IssuerName": {
+          "type": "string",
+          "description": "Full name of issuing country or entity"
+        },
+        "Series": {
+          "type": "string",
+          "description": "Document series or generation identifier"
+        }
+      }
+    },
+    "DocumentField": {
+      "type": "object",
+      "description": "Extracted data field from a document",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "Field name (e.g., 'First Name', 'Date of Birth', 'Document Number')"
+        },
+        "Value": {
+          "type": "string",
+          "description": "Extracted value for the field"
+        },
+        "DataSource": {
+          "type": "string",
+          "description": "Source of extraction (OCR, Barcode, MRZ, Chip)"
+        }
+      }
+    },
+    "DocumentImage": {
+      "type": "object",
+      "description": "Document image with quality metrics",
+      "properties": {
+        "GlareMetric": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Glare quality score (0-100; higher is better)"
+        },
+        "SharpnessMetric": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Sharpness quality score (0-100; higher is better)"
+        },
+        "Light": {
+          "type": "integer",
+          "description": "Light source (0=Visible, 1=NearInfrared, 2=Ultraviolet, 3=Coaxial)",
+          "enum": [0, 1, 2, 3]
+        },
+        "Side": {
+          "type": "integer",
+          "description": "Document side (0=Front, 1=Back)",
+          "enum": [0, 1]
+        },
+        "Uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI of the corrected-orientation image"
+        }
+      }
+    }
+  }
+}

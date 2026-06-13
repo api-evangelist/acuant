@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/acuant/main/json-schema/acuant-liveness-result.json",
+  "title": "Acuant Liveness Result",
+  "description": "Schema for the response from the Acuant Passive Liveness API.",
+  "type": "object",
+  "properties": {
+    "LivenessAssessment": {
+      "type": "string",
+      "enum": ["Live", "NotLive", "PoorQuality", "Error"],
+      "description": "Liveness assessment outcome. Live = real person detected; NotLive = spoof/attack detected; PoorQuality = image insufficient; Error = processing failure."
+    },
+    "Score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Confidence score for the liveness assessment (0-100)."
+    },
+    "TransactionId": {
+      "type": "string",
+      "description": "Unique identifier for this liveness check transaction."
+    },
+    "Error": {
+      "type": ["string", "null"],
+      "description": "Error message if LivenessAssessment is Error."
+    },
+    "ErrorCode": {
+      "type": ["integer", "null"],
+      "description": "Numeric error code if processing failed."
+    }
+  },
+  "required": ["LivenessAssessment"]
+}

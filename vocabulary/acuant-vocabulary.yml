@@ -1,0 +1,99 @@
+vocabulary:
+  - term: AssureID
+    definition: >-
+      Acuant's document authentication platform supporting over 3,400 global
+      document types. Provides REST API and SDKs for ID capture, data
+      extraction, and multi-spectral image analysis.
+    domain: Document Authentication
+
+  - term: Document Instance
+    definition: >-
+      A session (identified by a GUID) created in AssureID Connect for
+      processing a single identity document. All image uploads, data
+      submissions, and result retrievals are scoped to an instance.
+    domain: Document Authentication
+
+  - term: FRM
+    definition: >-
+      Face Recognition and Matching — Acuant's biometric API for comparing
+      two facial images and returning a similarity score. Used to verify
+      that a selfie matches the portrait on an identity document.
+    domain: Biometrics
+
+  - term: Passive Liveness
+    definition: >-
+      Liveness detection technique requiring only a single selfie image
+      (no active challenges). Analyzes the image for presentation attack
+      indicators including printed photos, masks, deepfakes, and face-swap
+      attacks. ISO/IEC 30107-3 compliant.
+    domain: Biometrics
+
+  - term: ACAS
+    definition: >-
+      Acuant Cloud Authentication Service. Issues and validates JWT bearer
+      tokens used to authenticate calls to FRM, Passive Liveness, and other
+      Acuant REST APIs.
+    domain: Authentication
+
+  - term: Ozone
+    definition: >-
+      Digital identity trust API acquired from Mount Airy Group. Provides
+      identity intelligence and trust scoring layered on top of document
+      and biometric verification results.
+    domain: Identity Trust
+
+  - term: LivenessAssessment
+    definition: >-
+      The outcome field returned by the Passive Liveness API. Values:
+      Live (genuine person), NotLive (spoof/attack detected),
+      PoorQuality (image insufficient for assessment), Error (processing failure).
+    domain: Biometrics
+
+  - term: KYC
+    definition: >-
+      Know Your Customer — regulatory requirement to verify the identity
+      of customers, typically involving document authentication and biometric
+      verification. A primary use case for Acuant APIs.
+    domain: Compliance
+
+  - term: AML
+    definition: >-
+      Anti-Money Laundering — regulatory compliance framework requiring
+      identity verification of customers in financial transactions.
+      Acuant APIs support AML workflows.
+    domain: Compliance
+
+  - term: PAD
+    definition: >-
+      Presentation Attack Detection — capability to identify attempts to
+      spoof biometric systems using artifacts (printed photos, masks,
+      screens). Acuant Passive Liveness is iBeta PAD Level 1 and Level 2 certified.
+    domain: Biometrics
+
+  - term: MRZ
+    definition: >-
+      Machine-Readable Zone — the two or three lines of encoded text at
+      the bottom of a passport or identity document, readable by OCR.
+      AssureID can ingest MRZ data directly for cross-validation.
+    domain: Document Authentication
+
+  - term: Multi-Spectral Imaging
+    definition: >-
+      Technique of capturing document images under multiple light sources
+      (Visible, Near-Infrared, Ultraviolet, Coaxial) to reveal security
+      features invisible under white light. AssureID accepts multi-spectral
+      images for enhanced authentication.
+    domain: Document Authentication
+
+  - term: SubscriptionId
+    definition: >-
+      A GUID that identifies the Acuant subscription/account for billing
+      and feature access. Required in most API requests.
+    domain: API Operations
+
+  - term: Light Source
+    definition: >-
+      The type of illumination used when capturing a document image.
+      Values: 0=Visible (white light), 1=NearInfrared, 2=Ultraviolet,
+      3=Coaxial. Different light sources reveal different security features.
+    domain: Document Authentication

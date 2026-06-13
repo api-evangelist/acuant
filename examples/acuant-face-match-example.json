@@ -1,0 +1,30 @@
+{
+  "summary": "Compare face from ID document against live selfie",
+  "description": "Example FRM face match request comparing a face extracted from an identity document against a live selfie capture for identity verification.",
+  "request": {
+    "method": "POST",
+    "url": "https://frm.acuant.net/api/v1/facematch",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "Settings": {
+        "SubscriptionId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+      },
+      "Data": {
+        "ImageOne": "/9j/4AAQSkZJRgABAQAAAQABAAD...(base64 document face image)",
+        "ImageTwo": "/9j/4AAQSkZJRgABAQAAAQABAAD...(base64 selfie image)"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "Score": 87.4,
+      "IsMatch": true,
+      "TransactionId": "txn-f47ac10b-58cc"
+    }
+  }
+}

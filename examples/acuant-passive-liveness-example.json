@@ -1,0 +1,27 @@
+{
+  "summary": "Check passive liveness on a selfie image",
+  "description": "Example Passive Liveness API request to detect if a selfie image depicts a live person or a presentation attack (e.g., printed photo, mask, screen replay).",
+  "request": {
+    "method": "POST",
+    "url": "https://us.passlive.acuant.net/api/v1/liveness",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "SubscriptionId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "Image": "/9j/4AAQSkZJRgABAQAAAQABAAD...(base64 selfie image)"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "LivenessAssessment": "Live",
+      "Score": 93.7,
+      "TransactionId": "txn-b2c3d4e5-6f7a",
+      "Error": null,
+      "ErrorCode": null
+    }
+  }
+}

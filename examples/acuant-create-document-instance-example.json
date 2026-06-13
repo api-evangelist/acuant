@@ -1,0 +1,33 @@
+{
+  "summary": "Create a new AssureID document processing instance",
+  "description": "Example request to create a document transaction for processing a US driver's license captured via mobile camera.",
+  "request": {
+    "method": "POST",
+    "url": "https://services.assureid.net/Document/Instance",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "SubscriptionId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "ImageCroppingExpectedSize": 0,
+      "ImageCroppingMode": 0,
+      "ManualCropCoordinates": null,
+      "Device": {
+        "Manufacturer": "Apple",
+        "Model": "iPhone 14 Pro",
+        "SerialNumber": "DNQXQ1234ABC",
+        "Type": {
+          "Manufacturer": "Apple",
+          "Model": "iPhone 14 Pro",
+          "SensorType": 2
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+  }
+}
