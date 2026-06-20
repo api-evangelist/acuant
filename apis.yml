@@ -12,7 +12,7 @@ description: >-
   detection, ACAS for cloud authentication, and Ozone for digital identity
   trust. SDKs are available for iOS, Android, and JavaScript web applications.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/acuant/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
