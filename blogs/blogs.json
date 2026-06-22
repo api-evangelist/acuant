@@ -1,20 +1,14 @@
 {
-  "blogUrl": "https://www.acuant.com/blog/",
-  "note": "Acuant was acquired by GB Group plc (GBG) in 2021. The acuant.com domain now redirects to gbg.com/en-us. Blog content may be archived or migrated to the GBG site.",
-  "lastChecked": "2026-06-13",
-  "status": "redirected",
-  "redirectTarget": "https://www.gbg.com/en-us",
-  "posts": [],
   "repo": "acuant",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/acuant",
-      "feed_url": "https://www.linkedin.com/company/acuant",
+      "source": "https://www.acuant.com/blog/",
+      "feed_url": "",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "note": "acuant.com/blog/ and all feed paths (/blog/feed/, /feed/) 301-redirect cross-host to https://www.gbg.com/en-us (GBG acquired Acuant 2021). No RSS/Atom feed resolves; GBG blog/insights feed paths return 404. No scrapable post listing."
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-21T17:00:00Z",
+  "post_count": 0
 }
