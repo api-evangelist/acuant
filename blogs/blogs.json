@@ -4,11 +4,12 @@
     {
       "source": "https://www.acuant.com/blog/",
       "feed_url": "",
-      "title": "",
       "saved": 0,
-      "note": "acuant.com/blog/ and all feed paths (/blog/feed/, /feed/) 301-redirect cross-host to https://www.gbg.com/en-us (GBG acquired Acuant 2021). No RSS/Atom feed resolves; GBG blog/insights feed paths return 404. No scrapable post listing."
+      "method": "agent-scrape",
+      "error": "301 redirects cross-host to gbg.com (Acuant acquired by GBG); no dated posts"
     }
   ],
-  "fetched": "2026-06-21T17:00:00Z",
-  "post_count": 0
+  "fetched": "2026-06-27T12:21:46Z",
+  "post_count": 0,
+  "agent_pulled": "2026-06-27"
 }
