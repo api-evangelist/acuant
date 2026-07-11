@@ -120,6 +120,10 @@ apis:
         url: https://www.acuant.com/integrations/
 
 common:
+  - type: DomainSecurity
+    url: security/acuant-domain-security.yml
+  - type: Authentication
+    url: authentication/acuant-authentication.yml
   - type: Website
     url: https://www.acuant.com
   - type: Documentation

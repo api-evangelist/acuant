@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/acuant-acas-openapi.yml, openapi/acuant-assureid-connect-openapi.yml, openapi/acuant-frm-openapi.yml,
+  openapi/acuant-passive-liveness-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BasicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic authentication. Credentials encoded as Base64("username:password")
+    in the Authorization header.
+  sources:
+  - openapi/acuant-acas-openapi.yml
+  - openapi/acuant-assureid-connect-openapi.yml
+  - openapi/acuant-frm-openapi.yml
+  - openapi/acuant-passive-liveness-openapi.yml
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: JWT bearer token obtained from the /api/v1/token endpoint.
+  sources:
+  - openapi/acuant-acas-openapi.yml
+  - openapi/acuant-frm-openapi.yml
+  - openapi/acuant-passive-liveness-openapi.yml
