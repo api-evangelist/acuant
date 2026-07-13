@@ -2,14 +2,14 @@
   "repo": "acuant",
   "feeds": [
     {
-      "source": "https://www.acuant.com/blog/",
-      "feed_url": "",
+      "source": "https://www.linkedin.com/company/acuant",
+      "feed_url": "https://www.linkedin.com/company/acuant",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape",
-      "error": "301 redirects cross-host to gbg.com (Acuant acquired by GBG); no dated posts"
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T12:21:46Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0,
   "agent_pulled": "2026-06-27"
 }
