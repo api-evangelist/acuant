@@ -120,6 +120,8 @@ apis:
         url: https://www.acuant.com/integrations/
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/acuant-agentic-access.yml
   - type: DomainSecurity
     url: security/acuant-domain-security.yml
   - type: Authentication
