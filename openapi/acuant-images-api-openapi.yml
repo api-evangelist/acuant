@@ -1,0 +1,236 @@
+openapi: 3.0.3
+info:
+  title: Acuant ACAS (Cloud Service) Authentication Images API
+  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
+  version: '1.0'
+  contact:
+    name: Acuant Support
+    url: https://support.acuant.com
+  x-api-id: acuant:acas
+servers:
+- url: https://us.acas.acuant.net
+  description: USA Production
+- url: https://eu.acas.acuant.net
+  description: EU Production
+- url: https://aus.acas.acuant.net
+  description: AUS Production
+- url: https://preview.acas.acuant.net
+  description: Preview / Sandbox
+security:
+- BasicAuth: []
+tags:
+- name: Images
+  description: Submit and retrieve document images
+paths:
+  /Document/{instanceId}/Image:
+    post:
+      operationId: uploadDocumentImage
+      summary: Upload document image
+      description: Submits a document image for the specified instance. Multiple images can be submitted with different light sources and document sides. Minimum 300 DPI required; 600 DPI recommended for authentication.
+      tags:
+      - Images
+      parameters:
+      - $ref: '#/components/parameters/instanceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageUploadRequest'
+            example:
+              Image:
+                MimeType: image/jpeg
+                Data: <base64-encoded-image-data>
+              Light: 0
+              Side: 0
+              CalculateMetrics: true
+      responses:
+        '200':
+          description: Image submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageMetrics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '430':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      operationId: getDocumentImage
+      summary: Retrieve document images
+      description: Returns document images with corrected orientation.
+      tags:
+      - Images
+      parameters:
+      - $ref: '#/components/parameters/instanceId'
+      responses:
+        '200':
+          description: Document images
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentImage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /DocumentImageMetrics:
+    get:
+      operationId: getDocumentImageMetrics
+      summary: Get image quality metrics
+      description: Returns image quality metrics including sharpness and glare scores.
+      tags:
+      - Images
+      responses:
+        '200':
+          description: Image quality metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageMetrics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: Validation or argument error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Duplicate submission attempt
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    ImageUploadRequest:
+      type: object
+      required:
+      - Image
+      - Light
+      - Side
+      properties:
+        Image:
+          $ref: '#/components/schemas/ImageData'
+        Light:
+          type: integer
+          description: Light source type (0=Visible, 1=NearInfrared, 2=Ultraviolet, 3=Coaxial)
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+        Side:
+          type: integer
+          description: Document side (0=Front, 1=Back)
+          enum:
+          - 0
+          - 1
+        CalculateMetrics:
+          type: boolean
+          description: Whether to calculate image quality metrics
+          default: true
+    ImageData:
+      type: object
+      required:
+      - MimeType
+      - Data
+      properties:
+        MimeType:
+          type: string
+          description: MIME type of the image
+          example: image/jpeg
+        Data:
+          type: string
+          format: byte
+          description: Base64-encoded image data
+    ImageMetrics:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Glare quality score (0-100)
+        SharpnessMetric:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Sharpness quality score (0-100)
+    DocumentImage:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+        SharpnessMetric:
+          type: number
+          format: float
+        Light:
+          type: integer
+          description: Light source used
+        Side:
+          type: integer
+          description: Document side
+        Uri:
+          type: string
+          format: uri
+          description: URI of corrected orientation image
+  parameters:
+    instanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: Document instance GUID
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT bearer token obtained from the /api/v1/token endpoint.

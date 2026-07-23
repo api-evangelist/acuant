@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Acuant ACAS (Cloud Service) Authentication Document Data API
+  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
+  version: '1.0'
+  contact:
+    name: Acuant Support
+    url: https://support.acuant.com
+  x-api-id: acuant:acas
+servers:
+- url: https://us.acas.acuant.net
+  description: USA Production
+- url: https://eu.acas.acuant.net
+  description: EU Production
+- url: https://aus.acas.acuant.net
+  description: AUS Production
+- url: https://preview.acas.acuant.net
+  description: Preview / Sandbox
+security:
+- BasicAuth: []
+tags:
+- name: Document Data
+  description: Upload and retrieve extracted document data
+paths:
+  /Document/{instanceId}/Data:
+    post:
+      operationId: uploadDocumentData
+      summary: Upload non-imaging data
+      description: Uploads non-imaging data for a document instance such as magnetic stripe data, MRZ (machine-readable zone), or chip data.
+      tags:
+      - Document Data
+      parameters:
+      - $ref: '#/components/parameters/instanceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentDataRequest'
+      responses:
+        '200':
+          description: Data submitted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /DocumentData:
+    get:
+      operationId: getDocumentData
+      summary: Retrieve extracted document data
+      description: Returns all extracted data fields from the document.
+      tags:
+      - Document Data
+      responses:
+        '200':
+          description: Extracted document data fields
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentField'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    DocumentDataRequest:
+      type: object
+      properties:
+        DataType:
+          type: integer
+          description: Type of non-imaging data (MRZ, magnetic stripe, etc.)
+        Data:
+          type: string
+          description: Raw data string
+    DocumentField:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: Field name (e.g., "First Name", "Date of Birth")
+        Value:
+          type: string
+          description: Extracted field value
+        DataSource:
+          type: string
+          description: Source of the data extraction
+  parameters:
+    instanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: Document instance GUID
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT bearer token obtained from the /api/v1/token endpoint.

@@ -1,0 +1,121 @@
+openapi: 3.0.3
+info:
+  title: Acuant ACAS (Cloud Service) Authentication Chip Data API
+  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
+  version: '1.0'
+  contact:
+    name: Acuant Support
+    url: https://support.acuant.com
+  x-api-id: acuant:acas
+servers:
+- url: https://us.acas.acuant.net
+  description: USA Production
+- url: https://eu.acas.acuant.net
+  description: EU Production
+- url: https://aus.acas.acuant.net
+  description: AUS Production
+- url: https://preview.acas.acuant.net
+  description: Preview / Sandbox
+security:
+- BasicAuth: []
+tags:
+- name: Chip Data
+  description: Submit and retrieve contactless chip data
+paths:
+  /DocumentChipData:
+    post:
+      operationId: uploadDocumentChipData
+      summary: Submit contactless chip data
+      description: Submits contactless chip (NFC/RFID) information for a document.
+      tags:
+      - Chip Data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChipDataRequest'
+      responses:
+        '200':
+          description: Chip data submitted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      operationId: getDocumentChipData
+      summary: Retrieve chip authentication results
+      description: Returns contactless chip authentication results.
+      tags:
+      - Chip Data
+      responses:
+        '200':
+          description: Chip authentication results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChipDataResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    ChipDataResult:
+      type: object
+      properties:
+        Authenticated:
+          type: boolean
+          description: Whether chip authentication succeeded
+        ChipFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentField'
+    ChipDataRequest:
+      type: object
+      properties:
+        ChipData:
+          type: string
+          description: NFC/RFID chip data payload
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    DocumentField:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: Field name (e.g., "First Name", "Date of Birth")
+        Value:
+          type: string
+          description: Extracted field value
+        DataSource:
+          type: string
+          description: Source of the data extraction
+  responses:
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT bearer token obtained from the /api/v1/token endpoint.

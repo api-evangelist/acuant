@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: Acuant ACAS (Cloud Service) Authentication Metadata API
+  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
+  version: '1.0'
+  contact:
+    name: Acuant Support
+    url: https://support.acuant.com
+  x-api-id: acuant:acas
+servers:
+- url: https://us.acas.acuant.net
+  description: USA Production
+- url: https://eu.acas.acuant.net
+  description: EU Production
+- url: https://aus.acas.acuant.net
+  description: AUS Production
+- url: https://preview.acas.acuant.net
+  description: Preview / Sandbox
+security:
+- BasicAuth: []
+tags:
+- name: Metadata
+  description: Supported document types, subscriptions, logs
+paths:
+  /DocumentTypes:
+    get:
+      operationId: listDocumentTypes
+      summary: List supported document types
+      description: Returns the list of over 3,400 supported global document types.
+      tags:
+      - Metadata
+      responses:
+        '200':
+          description: Supported document types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Subscriptions:
+    get:
+      operationId: listSubscriptions
+      summary: List available subscriptions
+      description: Returns available subscriptions for the authenticated account.
+      tags:
+      - Metadata
+      responses:
+        '200':
+          description: Available subscriptions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /DocumentLog:
+    get:
+      operationId: getDocumentLog
+      summary: Get transaction log
+      description: Returns transaction log entries for document processing sessions.
+      tags:
+      - Metadata
+      responses:
+        '200':
+          description: Transaction log entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentLogEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    DocumentType:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+          description: Document type name
+        Class:
+          type: string
+          description: Document class (Identification, Passport, etc.)
+        IssuerCode:
+          type: string
+          description: Issuing country/entity code
+        IssuerName:
+          type: string
+          description: Issuing country/entity name
+        Series:
+          type: string
+          description: Document series identifier
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    DocumentLogEntry:
+      type: object
+      properties:
+        InstanceId:
+          type: string
+          format: uuid
+        Timestamp:
+          type: string
+          format: date-time
+        DocumentType:
+          type: string
+        Status:
+          type: string
+    Subscription:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+        IsActive:
+          type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT bearer token obtained from the /api/v1/token endpoint.

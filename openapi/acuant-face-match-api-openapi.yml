@@ -1,42 +1,34 @@
 openapi: 3.0.3
 info:
-  title: Acuant FRM Face Recognition API
-  description: >-
-    Face recognition and matching API that compares two facial images and
-    returns a match score. Used alongside document verification to confirm
-    the person presenting an ID matches a live selfie capture. Supports
-    regional endpoints for USA, EU, and AUS deployments.
+  title: Acuant ACAS (Cloud Service) Authentication Face Match API
+  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
   version: '1.0'
   contact:
     name: Acuant Support
     url: https://support.acuant.com
-  x-api-id: acuant:frm
+  x-api-id: acuant:acas
 servers:
-  - url: https://frm.acuant.net
-    description: USA Production
-  - url: https://eu.frm.acuant.net
-    description: EU Production
-  - url: https://aus.frm.acuant.net
-    description: AUS Production
-  - url: https://preview.face.acuant.net
-    description: Preview / Sandbox
+- url: https://us.acas.acuant.net
+  description: USA Production
+- url: https://eu.acas.acuant.net
+  description: EU Production
+- url: https://aus.acas.acuant.net
+  description: AUS Production
+- url: https://preview.acas.acuant.net
+  description: Preview / Sandbox
 security:
-  - BearerAuth: []
-  - BasicAuth: []
+- BasicAuth: []
 tags:
-  - name: Face Match
-    description: Facial comparison and matching operations
+- name: Face Match
+  description: Facial comparison and matching operations
 paths:
   /api/v1/facematch:
     post:
       operationId: compareFaces
       summary: Compare two facial images
-      description: >-
-        Compares two facial images and returns a match score indicating the
-        likelihood that both images depict the same person. Typically used
-        to match a selfie against a photo extracted from an identity document.
+      description: Compares two facial images and returns a match score indicating the likelihood that both images depict the same person. Typically used to match a selfie against a photo extracted from an identity document.
       tags:
-        - Face Match
+      - Face Match
       requestBody:
         required: true
         content:
@@ -45,10 +37,10 @@ paths:
               $ref: '#/components/schemas/FaceMatchRequest'
             example:
               Settings:
-                SubscriptionId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                SubscriptionId: a1b2c3d4-e5f6-7890-abcd-ef1234567890
               Data:
-                ImageOne: "<base64-encoded-face-image-1>"
-                ImageTwo: "<base64-encoded-face-image-2>"
+                ImageOne: <base64-encoded-face-image-1>
+                ImageTwo: <base64-encoded-face-image-2>
       responses:
         '200':
           description: Face match result
@@ -59,7 +51,7 @@ paths:
               example:
                 Score: 85.5
                 IsMatch: true
-                TransactionId: "txn-a1b2c3d4"
+                TransactionId: txn-a1b2c3d4
         '400':
           description: Invalid request or image quality insufficient
           content:
@@ -84,21 +76,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >-
-        Bearer token obtained from the ACAS (Cloud Authentication Service).
-        Include SubscriptionId in request body alongside the bearer token.
-    BasicAuth:
-      type: http
-      scheme: basic
-      description: HTTP Basic authentication with Acuant credentials.
-
   schemas:
     Error:
       type: object
@@ -109,43 +87,25 @@ components:
         Message:
           type: string
           description: Error description
-
     FaceMatchSettings:
       type: object
       required:
-        - SubscriptionId
+      - SubscriptionId
       properties:
         SubscriptionId:
           type: string
           format: uuid
           description: Acuant subscription identifier
-
-    FaceMatchData:
-      type: object
-      required:
-        - ImageOne
-        - ImageTwo
-      properties:
-        ImageOne:
-          type: string
-          format: byte
-          description: Base64-encoded first facial image (e.g., from identity document)
-        ImageTwo:
-          type: string
-          format: byte
-          description: Base64-encoded second facial image (e.g., live selfie)
-
     FaceMatchRequest:
       type: object
       required:
-        - Settings
-        - Data
+      - Settings
+      - Data
       properties:
         Settings:
           $ref: '#/components/schemas/FaceMatchSettings'
         Data:
           $ref: '#/components/schemas/FaceMatchData'
-
     FaceMatchResult:
       type: object
       properties:
@@ -154,9 +114,7 @@ components:
           format: float
           minimum: 0
           maximum: 100
-          description: >-
-            Match confidence score from 0 to 100. Higher values indicate
-            greater likelihood the images depict the same person.
+          description: Match confidence score from 0 to 100. Higher values indicate greater likelihood the images depict the same person.
         IsMatch:
           type: boolean
           description: Whether the match score exceeds the configured threshold
@@ -171,3 +129,27 @@ components:
           type: integer
           nullable: true
           description: Numeric error code if an error occurred
+    FaceMatchData:
+      type: object
+      required:
+      - ImageOne
+      - ImageTwo
+      properties:
+        ImageOne:
+          type: string
+          format: byte
+          description: Base64-encoded first facial image (e.g., from identity document)
+        ImageTwo:
+          type: string
+          format: byte
+          description: Base64-encoded second facial image (e.g., live selfie)
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT bearer token obtained from the /api/v1/token endpoint.

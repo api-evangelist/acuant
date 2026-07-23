@@ -1,0 +1,295 @@
+openapi: 3.0.3
+info:
+  title: Acuant ACAS (Cloud Service) Authentication Document Instances API
+  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
+  version: '1.0'
+  contact:
+    name: Acuant Support
+    url: https://support.acuant.com
+  x-api-id: acuant:acas
+servers:
+- url: https://us.acas.acuant.net
+  description: USA Production
+- url: https://eu.acas.acuant.net
+  description: EU Production
+- url: https://aus.acas.acuant.net
+  description: AUS Production
+- url: https://preview.acas.acuant.net
+  description: Preview / Sandbox
+security:
+- BasicAuth: []
+tags:
+- name: Document Instances
+  description: Create and manage document processing sessions
+paths:
+  /Document/Instance:
+    post:
+      operationId: createDocumentInstance
+      summary: Create document processing instance
+      description: Creates a new document processing session. Returns an instance ID (GUID) used for all subsequent operations in the transaction.
+      tags:
+      - Document Instances
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentCreateRequest'
+            example:
+              SubscriptionId: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              ImageCroppingExpectedSize: 0
+              ImageCroppingMode: 0
+              ManualCropCoordinates: null
+              Device:
+                Manufacturer: Acuant
+                Model: WebSDK
+                SerialNumber: '1234567890'
+                Type:
+                  Manufacturer: Web
+                  Model: Browser
+                  SensorType: 2
+      responses:
+        '200':
+          description: Document instance created successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+                description: Instance ID (GUID) for the document processing session
+              example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /Document/{instanceId}:
+    get:
+      operationId: getDocumentResult
+      summary: Retrieve document processing results
+      description: Returns the full document processing result including classification, extracted field data, and authentication test results.
+      tags:
+      - Document Instances
+      parameters:
+      - $ref: '#/components/parameters/instanceId'
+      responses:
+        '200':
+          description: Document processing result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      operationId: deleteDocumentInstance
+      summary: Delete document instance
+      description: Removes a document instance and all associated data.
+      tags:
+      - Document Instances
+      parameters:
+      - $ref: '#/components/parameters/instanceId'
+      responses:
+        '200':
+          description: Instance deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Inactive subscription
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    DocumentType:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+          description: Document type name
+        Class:
+          type: string
+          description: Document class (Identification, Passport, etc.)
+        IssuerCode:
+          type: string
+          description: Issuing country/entity code
+        IssuerName:
+          type: string
+          description: Issuing country/entity name
+        Series:
+          type: string
+          description: Document series identifier
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    DeviceType:
+      type: object
+      properties:
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SensorType:
+          type: integer
+          description: Sensor type (0=Scanner, 1=Camera, 2=Mobile)
+          enum:
+          - 0
+          - 1
+          - 2
+    DocumentClassification:
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/DocumentType'
+        ClassificationDetails:
+          type: object
+          properties:
+            Front:
+              type: object
+            Back:
+              type: object
+    DocumentField:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: Field name (e.g., "First Name", "Date of Birth")
+        Value:
+          type: string
+          description: Extracted field value
+        DataSource:
+          type: string
+          description: Source of the data extraction
+    Document:
+      type: object
+      properties:
+        InstanceId:
+          type: string
+          format: uuid
+          description: Instance identifier
+        Classification:
+          $ref: '#/components/schemas/DocumentClassification'
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentField'
+        AuthenticationSensitivity:
+          type: integer
+          description: Authentication sensitivity level
+        Images:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentImage'
+    DocumentImage:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+        SharpnessMetric:
+          type: number
+          format: float
+        Light:
+          type: integer
+          description: Light source used
+        Side:
+          type: integer
+          description: Document side
+        Uri:
+          type: string
+          format: uri
+          description: URI of corrected orientation image
+    DocumentCreateRequest:
+      type: object
+      required:
+      - SubscriptionId
+      properties:
+        SubscriptionId:
+          type: string
+          format: uuid
+          description: Subscription identifier for the processing request
+        ImageCroppingExpectedSize:
+          type: integer
+          description: Expected size for image cropping (0 = auto)
+          default: 0
+        ImageCroppingMode:
+          type: integer
+          description: Cropping mode (0 = default)
+          default: 0
+        ManualCropCoordinates:
+          type: object
+          nullable: true
+          description: Manual crop coordinates if applicable
+        Device:
+          $ref: '#/components/schemas/DeviceInfo'
+    DeviceInfo:
+      type: object
+      properties:
+        Manufacturer:
+          type: string
+          description: Device manufacturer name
+        Model:
+          type: string
+          description: Device model
+        SerialNumber:
+          type: string
+          description: Device serial number
+        Type:
+          $ref: '#/components/schemas/DeviceType'
+  parameters:
+    instanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: Document instance GUID
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT bearer token obtained from the /api/v1/token endpoint.
