@@ -12,7 +12,20 @@ description: >-
   detection, ACAS for cloud authentication, and Ozone for digital identity
   trust. SDKs are available for iOS, Android, and JavaScript web applications.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/acuant.png
 url: https://raw.githubusercontent.com/api-evangelist/acuant/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -27,98 +40,167 @@ tags:
   - AML
   - ID Capture
 apis:
-  - aid: acuant:assureid-connect
-    name: Acuant AssureID Connect API
-    description: >-
-      REST API for document identity verification. Supports creating document
-      transactions, uploading multi-spectral images, extracting data fields,
-      and retrieving authentication results for over 3,400 global document
-      types including driver's licenses, passports, and national IDs. Uses
-      HTTP Basic authentication over HTTPS.
-    humanURL: https://www.acuant.com/document-centric-verification
-    baseURL: https://services.assureid.net
-    tags:
-      - Document Authentication
-      - ID Verification
-      - OCR
-      - Data Extraction
-    properties:
-      - type: Documentation
-        url: https://www.acuant.com/document-centric-verification
-      - type: IntegrationGuide
-        url: https://usermanual.wiki/Document/AssureID20Connect20Web20Service20Integration20Guide.153605132/help
-
-  - aid: acuant:frm
-    name: Acuant FRM Face Recognition API
-    description: >-
-      Face recognition and matching API that compares two facial images and
-      returns a match score. Used alongside document verification to confirm
-      the person presenting an ID matches a live selfie capture. Regional
-      endpoints available for USA, EU, and AUS.
-    humanURL: https://www.acuant.com/biometric-identity-verification/
-    baseURL: https://frm.acuant.net
-    tags:
-      - Face Recognition
-      - Biometrics
-      - Face Matching
-    properties:
-      - type: Documentation
-        url: https://www.acuant.com/biometric-identity-verification/
-
-  - aid: acuant:passive-liveness
-    name: Acuant Passive Liveness API
-    description: >-
-      Liveness detection API that evaluates a selfie image for presentation
-      attacks including printed photos, masks, deepfakes, and face-swap
-      attacks. Returns LivenessAssessment (Live, NotLive, PoorQuality, Error)
-      and a confidence score. ISO/IEC 30107-3 compliant with iBeta PAD Level
-      1 and Level 2 certification.
-    humanURL: https://www.acuant.com/biometric-identity-verification/
-    baseURL: https://us.passlive.acuant.net
-    tags:
-      - Liveness Detection
-      - Biometrics
-      - Anti-Spoofing
-      - Presentation Attack Detection
-    properties:
-      - type: Documentation
-        url: https://www.acuant.com/biometric-identity-verification/
-
-  - aid: acuant:acas
-    name: Acuant ACAS (Cloud Authentication Service) API
-    description: >-
-      Acuant Cloud Authentication Service (ACAS) provides authentication
-      token management for initializing and authorizing SDK and API sessions.
-      Supports Basic Auth (Base64) credential exchange and bearer token
-      issuance. Regional endpoints available for USA, EU, AUS, and preview
-      environments.
-    humanURL: https://www.acuant.com/integrations/
-    baseURL: https://us.acas.acuant.net
-    tags:
-      - Authentication
-      - Token Management
-      - Identity
-    properties:
-      - type: Documentation
-        url: https://www.acuant.com/integrations/
-
-  - aid: acuant:ozone
-    name: Acuant Ozone API
-    description: >-
-      Digital identity trust API derived from Acuant's acquisition of Ozone
-      from Mount Airy Group. Provides additional identity intelligence and
-      trust scoring layered on top of document and biometric verification
-      results.
-    humanURL: https://www.acuant.com/integrations/
-    baseURL: https://ozone.acuant.net
-    tags:
-      - Identity Trust
-      - Fraud Prevention
-      - Identity Intelligence
-    properties:
-      - type: Documentation
-        url: https://www.acuant.com/integrations/
-
+- aid: acuant:assureid-connect
+  name: Acuant AssureID Connect API
+  description: >-
+    REST API for document identity verification. Supports creating document transactions, uploading multi-spectral
+    images, extracting data fields, and retrieving authentication results for over 3,400 global document
+    types including driver's licenses, passports, and national IDs. Uses HTTP Basic authentication over
+    HTTPS.
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Document Authentication
+  - ID Verification
+  - OCR
+  - Data Extraction
+  properties:
+  - type: Documentation
+    url: https://www.acuant.com/document-centric-verification
+  - type: IntegrationGuide
+    url: >-
+      https://usermanual.wiki/Document/AssureID20Connect20Web20Service20Integration20Guide.153605132/help
+- aid: acuant:frm
+  name: Acuant FRM Face Recognition API
+  description: >-
+    Face recognition and matching API that compares two facial images and returns a match score. Used
+    alongside document verification to confirm the person presenting an ID matches a live selfie capture.
+    Regional endpoints available for USA, EU, and AUS.
+  humanURL: https://www.acuant.com/biometric-identity-verification/
+  baseURL: https://frm.acuant.net
+  tags:
+  - Face Recognition
+  - Biometrics
+  - Face Matching
+  properties:
+  - type: Documentation
+    url: https://www.acuant.com/biometric-identity-verification/
+- aid: acuant:passive-liveness
+  name: Acuant Passive Liveness API
+  description: >-
+    Liveness detection API that evaluates a selfie image for presentation attacks including printed photos,
+    masks, deepfakes, and face-swap attacks. Returns LivenessAssessment (Live, NotLive, PoorQuality, Error)
+    and a confidence score. ISO/IEC 30107-3 compliant with iBeta PAD Level 1 and Level 2 certification.
+  humanURL: https://www.acuant.com/biometric-identity-verification/
+  baseURL: https://us.passlive.acuant.net
+  tags:
+  - Liveness Detection
+  - Biometrics
+  - Anti-Spoofing
+  - Presentation Attack Detection
+  properties:
+  - type: Documentation
+    url: https://www.acuant.com/biometric-identity-verification/
+- aid: acuant:acas
+  name: Acuant ACAS (Cloud Authentication Service) API
+  description: >-
+    Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing
+    and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer
+    token issuance. Regional endpoints available for USA, EU, AUS, and preview environments.
+  humanURL: https://www.acuant.com/integrations/
+  baseURL: https://us.acas.acuant.net
+  tags:
+  - Authentication
+  - Token Management
+  - Identity
+  properties:
+  - type: Documentation
+    url: https://www.acuant.com/integrations/
+- aid: acuant:ozone
+  name: Acuant Ozone API
+  description: >-
+    Digital identity trust API derived from Acuant's acquisition of Ozone from Mount Airy Group. Provides
+    additional identity intelligence and trust scoring layered on top of document and biometric verification
+    results.
+  humanURL: https://www.acuant.com/integrations/
+  baseURL: https://ozone.acuant.net
+  tags:
+  - Identity Trust
+  - Fraud Prevention
+  - Identity Intelligence
+  properties:
+  - type: Documentation
+    url: https://www.acuant.com/integrations/
+- aid: acuant:acuant-authentication-api
+  name: Acuant Authentication API
+  description: Token issuance and validation
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-authentication-api-openapi.yml
+- aid: acuant:acuant-chip-data-api
+  name: Acuant Chip Data API
+  description: Submit and retrieve contactless chip data
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Chip Data
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-chip-data-api-openapi.yml
+- aid: acuant:acuant-document-data-api
+  name: Acuant Document Data API
+  description: Upload and retrieve extracted document data
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Document Data
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-document-data-api-openapi.yml
+- aid: acuant:acuant-document-instances-api
+  name: Acuant Document Instances API
+  description: Create and manage document processing sessions
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Document Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-document-instances-api-openapi.yml
+- aid: acuant:acuant-face-match-api
+  name: Acuant Face Match API
+  description: Facial comparison and matching operations
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Face Match
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-face-match-api-openapi.yml
+- aid: acuant:acuant-images-api
+  name: Acuant Images API
+  description: Submit and retrieve document images
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-images-api-openapi.yml
+- aid: acuant:acuant-liveness-api
+  name: Acuant Liveness API
+  description: Passive liveness detection operations
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Liveness
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-liveness-api-openapi.yml
+- aid: acuant:acuant-metadata-api
+  name: Acuant Metadata API
+  description: Supported document types, subscriptions, logs
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-metadata-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/acuant-agentic-access.yml
