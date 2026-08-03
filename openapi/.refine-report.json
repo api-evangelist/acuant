@@ -1,0 +1,28 @@
+{
+  "provider": "acuant",
+  "sources": [
+    "acuant-authentication-api-openapi.yml",
+    "acuant-chip-data-api-openapi.yml",
+    "acuant-document-data-api-openapi.yml",
+    "acuant-document-instances-api-openapi.yml",
+    "acuant-face-match-api-openapi.yml",
+    "acuant-images-api-openapi.yml",
+    "acuant-liveness-api-openapi.yml",
+    "acuant-metadata-api-openapi.yml"
+  ],
+  "outputs": [
+    "acuant-authentication-api-openapi.yml",
+    "acuant-chip-data-api-openapi.yml",
+    "acuant-document-data-api-openapi.yml",
+    "acuant-document-instances-api-openapi.yml",
+    "acuant-face-match-api-openapi.yml",
+    "acuant-images-api-openapi.yml",
+    "acuant-liveness-api-openapi.yml",
+    "acuant-metadata-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
