@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acuant ACAS (Cloud Service) Authentication Chip Data API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chip Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve chip authentication results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.acas.acuant.net/DocumentChipData"
+          },
+          "docs": "Returns contactless chip authentication results."
+        },
+        {
+          "info": {
+            "name": "Submit contactless chip data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.acas.acuant.net/DocumentChipData",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits contactless chip (NFC/RFID) information for a document."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

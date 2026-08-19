@@ -1,0 +1,802 @@
+{
+  "item": [
+    {
+      "id": "7836e9eb-70ac-4c02-9ea8-217d1221c067",
+      "name": "Document Instances",
+      "description": {
+        "content": "Create and manage document processing sessions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9c6caeb9-1cb2-42e3-a5ca-6d940db5eccb",
+          "name": "Create document processing instance",
+          "request": {
+            "name": "Create document processing instance",
+            "description": {
+              "content": "Creates a new document processing session. Returns an instance ID (GUID) used for all subsequent operations in the transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Document",
+                "Instance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SubscriptionId\": \"<uuid>\",\n  \"ImageCroppingExpectedSize\": 0,\n  \"ImageCroppingMode\": 0,\n  \"ManualCropCoordinates\": \"<object>\",\n  \"Device\": {\n    \"Manufacturer\": \"<string>\",\n    \"Model\": \"<string>\",\n    \"SerialNumber\": \"<string>\",\n    \"Type\": {\n      \"Manufacturer\": \"<string>\",\n      \"Model\": \"<string>\",\n      \"SensorType\": \"<integer>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "697b9f13-7bb1-4087-8fb7-be3c3291ff25",
+              "name": "Document instance created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    "Instance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SubscriptionId\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"ImageCroppingExpectedSize\": 0,\n  \"ImageCroppingMode\": 0,\n  \"ManualCropCoordinates\": null,\n  \"Device\": {\n    \"Manufacturer\": \"Acuant\",\n    \"Model\": \"WebSDK\",\n    \"SerialNumber\": \"1234567890\",\n    \"Type\": {\n      \"Manufacturer\": \"Web\",\n      \"Model\": \"Browser\",\n      \"SensorType\": 2\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e11c9b94-c173-4eae-b78c-1324974c9135",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    "Instance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SubscriptionId\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"ImageCroppingExpectedSize\": 0,\n  \"ImageCroppingMode\": 0,\n  \"ManualCropCoordinates\": null,\n  \"Device\": {\n    \"Manufacturer\": \"Acuant\",\n    \"Model\": \"WebSDK\",\n    \"SerialNumber\": \"1234567890\",\n    \"Type\": {\n      \"Manufacturer\": \"Web\",\n      \"Model\": \"Browser\",\n      \"SensorType\": 2\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e7f9d97-39a8-46a6-95bd-7accca6c50f9",
+              "name": "Inactive subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    "Instance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SubscriptionId\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"ImageCroppingExpectedSize\": 0,\n  \"ImageCroppingMode\": 0,\n  \"ManualCropCoordinates\": null,\n  \"Device\": {\n    \"Manufacturer\": \"Acuant\",\n    \"Model\": \"WebSDK\",\n    \"SerialNumber\": \"1234567890\",\n    \"Type\": {\n      \"Manufacturer\": \"Web\",\n      \"Model\": \"Browser\",\n      \"SensorType\": 2\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e86bf881-684a-4fcb-96f1-9e2aee35d185",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    "Instance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SubscriptionId\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"ImageCroppingExpectedSize\": 0,\n  \"ImageCroppingMode\": 0,\n  \"ManualCropCoordinates\": null,\n  \"Device\": {\n    \"Manufacturer\": \"Acuant\",\n    \"Model\": \"WebSDK\",\n    \"SerialNumber\": \"1234567890\",\n    \"Type\": {\n      \"Manufacturer\": \"Web\",\n      \"Model\": \"Browser\",\n      \"SensorType\": 2\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5fe100a-fb38-469d-83e3-2079162df54f",
+          "name": "Retrieve document processing results",
+          "request": {
+            "name": "Retrieve document processing results",
+            "description": {
+              "content": "Returns the full document processing result including classification, extracted field data, and authentication test results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Document",
+                ":instanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "instanceId",
+                  "description": "(Required) Document instance GUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3843241c-239f-4842-99f4-74aed2c05a70",
+              "name": "Document processing result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    ":instanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "instanceId",
+                      "description": "(Required) Document instance GUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"InstanceId\": \"4854ff33-d250-47c6-47d7-e4800497d912\",\n  \"Classification\": {\n    \"Type\": {\n      \"Id\": \"cb3a3489-ec61-f8e9-2e85-ae456802e227\",\n      \"Name\": \"string\",\n      \"Class\": \"string\",\n      \"IssuerCode\": \"string\",\n      \"IssuerName\": \"string\",\n      \"Series\": \"string\"\n    },\n    \"ClassificationDetails\": {\n      \"Front\": {},\n      \"Back\": {}\n    }\n  },\n  \"Fields\": [\n    {\n      \"Name\": \"string\",\n      \"Value\": \"string\",\n      \"DataSource\": \"string\"\n    },\n    {\n      \"Name\": \"string\",\n      \"Value\": \"string\",\n      \"DataSource\": \"string\"\n    }\n  ],\n  \"AuthenticationSensitivity\": 6907,\n  \"Images\": [\n    {\n      \"GlareMetric\": 519.9126078849858,\n      \"SharpnessMetric\": 3151.93107849031,\n      \"Light\": 9800,\n      \"Side\": 4360,\n      \"Uri\": \"http://AUZRxxLAnwMtaItQPfBtrZUoojlUPfKMa.wfujD-aASqkF-iprGV\"\n    },\n    {\n      \"GlareMetric\": 3629.878902807584,\n      \"SharpnessMetric\": 5060.3940677113715,\n      \"Light\": 7187,\n      \"Side\": 5356,\n      \"Uri\": \"https://qvSoDtErSOtjGt.yvwB-CDnqa6LBWVmKz12w5yE2mFJnsFENMmWo2lF4xcXMPxJfad3Mw0K\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e7ad965-06be-455b-8682-8d3dc98ffdec",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    ":instanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "instanceId",
+                      "description": "(Required) Document instance GUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb2a3088-cac8-4353-8e14-6bf9475d1d45",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    ":instanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "instanceId",
+                      "description": "(Required) Document instance GUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "966d0dcf-0f58-45cb-8d38-62c9b79f8f1a",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    ":instanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "instanceId",
+                      "description": "(Required) Document instance GUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3df16d3e-bc45-43d8-9da4-473698b1517a",
+          "name": "Delete document instance",
+          "request": {
+            "name": "Delete document instance",
+            "description": {
+              "content": "Removes a document instance and all associated data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Document",
+                ":instanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "instanceId",
+                  "description": "(Required) Document instance GUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4641f478-aa8f-4245-a9d1-97edf8b4801a",
+              "name": "Instance deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    ":instanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "instanceId",
+                      "description": "(Required) Document instance GUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c2da60dc-b9c9-44c7-a146-7cdcd85759d4",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    ":instanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "instanceId",
+                      "description": "(Required) Document instance GUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8206136d-4019-4a9a-b24c-c0e610dd4d71",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    ":instanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "instanceId",
+                      "description": "(Required) Document instance GUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4348561-5586-4a68-ae55-907515f0e491",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Document",
+                    ":instanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "instanceId",
+                      "description": "(Required) Document instance GUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 9334,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.acas.acuant.net",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "89b02637-bd7c-4fb2-a054-ff4d734a7775",
+    "name": "Acuant ACAS (Cloud Service) Authentication Document Instances API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.\n\nContact Support:\n Name: Acuant Support",
+      "type": "text/plain"
+    }
+  }
+}

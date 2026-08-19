@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acuant ACAS (Cloud Service) Authentication Images API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve document images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.acas.acuant.net/Document/:instanceId/Image",
+            "params": [
+              {
+                "name": "instanceId",
+                "value": "",
+                "type": "path",
+                "description": "Document instance GUID"
+              }
+            ]
+          },
+          "docs": "Returns document images with corrected orientation."
+        },
+        {
+          "info": {
+            "name": "Upload document image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.acas.acuant.net/Document/:instanceId/Image",
+            "params": [
+              {
+                "name": "instanceId",
+                "value": "",
+                "type": "path",
+                "description": "Document instance GUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a document image for the specified instance. Multiple images can be submitted with different light sources and document sides. Minimum 300 DPI required; 600 DPI recommended for authentication."
+        },
+        {
+          "info": {
+            "name": "Get image quality metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.acas.acuant.net/DocumentImageMetrics"
+          },
+          "docs": "Returns image quality metrics including sharpness and glare scores."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

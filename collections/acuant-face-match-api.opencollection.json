@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acuant ACAS (Cloud Service) Authentication Face Match API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Face Match",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Compare two facial images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.acas.acuant.net/api/v1/facematch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Compares two facial images and returns a match score indicating the likelihood that both images depict the same person. Typically used to match a selfie against a photo extracted from an identity document."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

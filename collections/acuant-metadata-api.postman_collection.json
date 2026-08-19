@@ -1,0 +1,408 @@
+{
+  "item": [
+    {
+      "id": "52587848-fc9f-4a82-a6f8-2b81bf6e9658",
+      "name": "Metadata",
+      "description": {
+        "content": "Supported document types, subscriptions, logs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b92f9e4e-154d-4dff-b8b5-17aef505ee51",
+          "name": "List supported document types",
+          "request": {
+            "name": "List supported document types",
+            "description": {
+              "content": "Returns the list of over 3,400 supported global document types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "DocumentTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bde9aade-711e-48a6-81d5-1c23ede40069",
+              "name": "Supported document types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DocumentTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Id\": \"2f970055-2135-34d1-26ca-ddf88cc2e1e4\",\n    \"Name\": \"string\",\n    \"Class\": \"string\",\n    \"IssuerCode\": \"string\",\n    \"IssuerName\": \"string\",\n    \"Series\": \"string\"\n  },\n  {\n    \"Id\": \"0260f5f1-73ee-631d-c7d7-930f20e92142\",\n    \"Name\": \"string\",\n    \"Class\": \"string\",\n    \"IssuerCode\": \"string\",\n    \"IssuerName\": \"string\",\n    \"Series\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dec62f7-e875-4cb9-af9a-1387e239fca3",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DocumentTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 3504,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1350e46d-cfa3-47b9-af20-da6d576e04ef",
+          "name": "List available subscriptions",
+          "request": {
+            "name": "List available subscriptions",
+            "description": {
+              "content": "Returns available subscriptions for the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "18147e92-c17b-47d8-838f-4a40ccf8488a",
+              "name": "Available subscriptions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Id\": \"0b562148-bdeb-1166-28d0-67085fb81163\",\n    \"Name\": \"string\",\n    \"IsActive\": false\n  },\n  {\n    \"Id\": \"97b8a279-e42d-76b1-8196-d7208fdd1c46\",\n    \"Name\": \"string\",\n    \"IsActive\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d913d87-a9d8-411b-8258-bb65a68e66a9",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 3504,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0654990-5748-41aa-8957-dc4af328263b",
+          "name": "Get transaction log",
+          "request": {
+            "name": "Get transaction log",
+            "description": {
+              "content": "Returns transaction log entries for document processing sessions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "DocumentLog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ceddd3b7-c22a-4a6b-be9a-2eeafeaf10d3",
+              "name": "Transaction log entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DocumentLog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"InstanceId\": \"540dfb6e-0e62-bdf7-0b1f-8dfe653633d6\",\n    \"Timestamp\": \"1957-07-30T04:11:13.845Z\",\n    \"DocumentType\": \"string\",\n    \"Status\": \"string\"\n  },\n  {\n    \"InstanceId\": \"3151acdb-e4cd-78a5-a56b-5dd0910c6c4e\",\n    \"Timestamp\": \"2024-06-01T14:23:58.727Z\",\n    \"DocumentType\": \"string\",\n    \"Status\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8093fe4a-8caa-432c-9082-acef0f144625",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DocumentLog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": 3504,\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.acas.acuant.net",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "eccea37e-d7cf-4a4e-87e8-6c19435ad379",
+    "name": "Acuant ACAS (Cloud Service) Authentication Metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.\n\nContact Support:\n Name: Acuant Support",
+      "type": "text/plain"
+    }
+  }
+}

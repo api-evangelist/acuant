@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acuant ACAS (Cloud Service) Authentication API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtain bearer token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.acas.acuant.net/api/v1/token",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Exchanges Basic Auth credentials (Base64-encoded username:password) for a bearer token. The returned token is used to authenticate requests to other Acuant APIs (FRM, Passive Liveness, etc.). Tokens are time-limited and should be refreshed before expiry."
+        },
+        {
+          "info": {
+            "name": "Validate bearer token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.acas.acuant.net/api/v1/token/validate",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Checks whether a bearer token is still valid and not expired."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

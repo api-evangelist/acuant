@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acuant ACAS (Cloud Service) Authentication Document Data API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload non-imaging data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.acas.acuant.net/Document/:instanceId/Data",
+            "params": [
+              {
+                "name": "instanceId",
+                "value": "",
+                "type": "path",
+                "description": "Document instance GUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads non-imaging data for a document instance such as magnetic stripe data, MRZ (machine-readable zone), or chip data."
+        },
+        {
+          "info": {
+            "name": "Retrieve extracted document data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.acas.acuant.net/DocumentData"
+          },
+          "docs": "Returns all extracted data fields from the document."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

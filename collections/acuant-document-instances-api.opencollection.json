@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acuant ACAS (Cloud Service) Authentication Document Instances API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create document processing instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.acas.acuant.net/Document/Instance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new document processing session. Returns an instance ID (GUID) used for all subsequent operations in the transaction."
+        },
+        {
+          "info": {
+            "name": "Retrieve document processing results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.acas.acuant.net/Document/:instanceId",
+            "params": [
+              {
+                "name": "instanceId",
+                "value": "",
+                "type": "path",
+                "description": "Document instance GUID"
+              }
+            ]
+          },
+          "docs": "Returns the full document processing result including classification, extracted field data, and authentication test results."
+        },
+        {
+          "info": {
+            "name": "Delete document instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.acas.acuant.net/Document/:instanceId",
+            "params": [
+              {
+                "name": "instanceId",
+                "value": "",
+                "type": "path",
+                "description": "Document instance GUID"
+              }
+            ]
+          },
+          "docs": "Removes a document instance and all associated data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
