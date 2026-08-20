@@ -177,6 +177,8 @@ apis:
   humanURL: https://www.acuant.com/document-centric-verification
   baseURL: https://services.assureid.net
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
