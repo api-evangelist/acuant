@@ -12,6 +12,18 @@ description: >-
   detection, ACAS for cloud authentication, and Ozone for digital identity
   trust. SDKs are available for iOS, Android, and JavaScript web applications.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
