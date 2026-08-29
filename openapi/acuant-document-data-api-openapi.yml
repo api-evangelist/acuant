@@ -1,20 +1,22 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Acuant ACAS (Cloud Service) Authentication Document Data API
-  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
+  title: Acuant AssureID Connect Document Data API
+  description: REST API for document identity verification. Supports creating document transactions, uploading multi-spectral images, extracting data fields, and retrieving authentication results for over 3,400 global document types including driver's licenses, passports, and national IDs. Uses HTTP Basic authentication over HTTPS.
   version: '1.0'
   contact:
     name: Acuant Support
     url: https://support.acuant.com
-  x-api-id: acuant:acas
+  x-api-id: acuant:assureid-connect
 servers:
-- url: https://us.acas.acuant.net
+- url: https://services.assureid.net
   description: USA Production
-- url: https://eu.acas.acuant.net
+- url: https://us.assureid.acuant.net
+  description: USA Production (alternate)
+- url: https://eu.assureid.acuant.net
   description: EU Production
-- url: https://aus.acas.acuant.net
+- url: https://aus.assureid.acuant.net
   description: AUS Production
-- url: https://preview.acas.acuant.net
+- url: https://preview.assureid.acuant.net
   description: Preview / Sandbox
 security:
 - BasicAuth: []
@@ -66,12 +68,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failure
       content:
@@ -84,7 +80,25 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    DocumentField:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: Field name (e.g., "First Name", "Date of Birth")
+        Value:
+          type: string
+          description: Extracted field value
+        DataSource:
+          type: string
+          description: Source of the data extraction
     Error:
       type: object
       properties:
@@ -103,18 +117,6 @@ components:
         Data:
           type: string
           description: Raw data string
-    DocumentField:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: Field name (e.g., "First Name", "Date of Birth")
-        Value:
-          type: string
-          description: Extracted field value
-        DataSource:
-          type: string
-          description: Source of the data extraction
   parameters:
     instanceId:
       name: instanceId
@@ -128,9 +130,4 @@ components:
     BasicAuth:
       type: http
       scheme: basic
-      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: JWT bearer token obtained from the /api/v1/token endpoint.
+      description: HTTP Basic Authentication. Credentials formatted as "name:password" and base64-encoded, transmitted via Authorization header over HTTPS.

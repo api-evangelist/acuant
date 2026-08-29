@@ -1,28 +1,39 @@
 {
   "provider": "acuant",
   "sources": [
-    "acuant-authentication-api-openapi.yml",
-    "acuant-chip-data-api-openapi.yml",
-    "acuant-document-data-api-openapi.yml",
-    "acuant-document-instances-api-openapi.yml",
-    "acuant-face-match-api-openapi.yml",
-    "acuant-images-api-openapi.yml",
-    "acuant-liveness-api-openapi.yml",
-    "acuant-metadata-api-openapi.yml"
+    "_original/acuant-acas-openapi.yml",
+    "_original/acuant-assureid-connect-openapi.yml",
+    "_original/acuant-frm-openapi.yml",
+    "_original/acuant-passive-liveness-openapi.yml"
   ],
   "outputs": [
     "acuant-authentication-api-openapi.yml",
     "acuant-chip-data-api-openapi.yml",
     "acuant-document-data-api-openapi.yml",
     "acuant-document-instances-api-openapi.yml",
-    "acuant-face-match-api-openapi.yml",
     "acuant-images-api-openapi.yml",
-    "acuant-liveness-api-openapi.yml",
-    "acuant-metadata-api-openapi.yml"
+    "acuant-metadata-api-openapi.yml",
+    "acuant-face-match-api-openapi.yml",
+    "acuant-liveness-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "acuant-acas-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "acuant-assureid-connect-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "acuant-frm-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "acuant-passive-liveness-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "acuant-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acuant-chip-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acuant-document-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acuant-document-instances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acuant-face-match-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acuant-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acuant-liveness-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acuant-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

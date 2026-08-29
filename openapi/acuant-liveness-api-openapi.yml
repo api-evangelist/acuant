@@ -1,22 +1,23 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Acuant ACAS (Cloud Service) Authentication Liveness API
-  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
+  title: Acuant Passive Liveness API
+  description: Liveness detection API that evaluates a selfie image for presentation attacks including printed photos, masks, deepfakes, and face-swap attacks. Returns a LivenessAssessment (Live, NotLive, PoorQuality, Error) and a confidence score. ISO/IEC 30107-3 compliant with iBeta PAD Level 1 and Level 2 certification. No active liveness challenges required — a single selfie image is sufficient.
   version: '1.0'
   contact:
     name: Acuant Support
     url: https://support.acuant.com
-  x-api-id: acuant:acas
+  x-api-id: acuant:passive-liveness
 servers:
-- url: https://us.acas.acuant.net
+- url: https://us.passlive.acuant.net
   description: USA Production
-- url: https://eu.acas.acuant.net
+- url: https://eu.passlive.acuant.net
   description: EU Production
-- url: https://aus.acas.acuant.net
+- url: https://aus.passlive.acuant.net
   description: AUS Production
-- url: https://preview.acas.acuant.net
+- url: https://preview.passlive.acuant.net
   description: Preview / Sandbox
 security:
+- BearerAuth: []
 - BasicAuth: []
 tags:
 - name: Liveness
@@ -75,34 +76,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    LivenessResult:
-      type: object
-      properties:
-        LivenessAssessment:
-          type: string
-          enum:
-          - Live
-          - NotLive
-          - PoorQuality
-          - Error
-          description: 'Assessment outcome. - Live: The image depicts a live person. - NotLive: A presentation attack was detected. - PoorQuality: Image quality is insufficient for assessment. - Error: Processing error occurred.'
-        Score:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Confidence score (0-100) for the liveness assessment. Higher values indicate greater confidence in the Live assessment.
-        TransactionId:
-          type: string
-          description: Unique identifier for this liveness check transaction
-        Error:
-          type: string
-          nullable: true
-          description: Error description if LivenessAssessment is Error
-        ErrorCode:
-          type: integer
-          nullable: true
-          description: Numeric error code if processing failed
     LivenessRequest:
       type: object
       required:
@@ -126,13 +99,43 @@ components:
         Message:
           type: string
           description: Error description
+    LivenessResult:
+      type: object
+      properties:
+        LivenessAssessment:
+          type: string
+          enum:
+          - Live
+          - NotLive
+          - PoorQuality
+          - Error
+          description: 'Assessment outcome. - Live: The image depicts a live person. - NotLive: A presentation attack was detected. - PoorQuality: Image quality is insufficient for assessment. - Error: Processing error occurred.'
+        Score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Confidence score (0-100) for the liveness assessment. Higher values indicate greater confidence in the Live assessment.
+        TransactionId:
+          type: string
+          description: Unique identifier for this liveness check transaction
+        Error:
+          type:
+          - string
+          - 'null'
+          description: Error description if LivenessAssessment is Error
+        ErrorCode:
+          type:
+          - integer
+          - 'null'
+          description: Numeric error code if processing failed
   securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: JWT bearer token obtained from the /api/v1/token endpoint.
+      description: Bearer token obtained from the ACAS (Cloud Authentication Service).
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Acuant credentials.

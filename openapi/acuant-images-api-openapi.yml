@@ -1,20 +1,22 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Acuant ACAS (Cloud Service) Authentication Images API
-  description: Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic Auth (Base64) credential exchange and bearer token issuance for use with other Acuant APIs. Regional endpoints available for USA, EU, AUS, and preview environments.
+  title: Acuant AssureID Connect Images API
+  description: REST API for document identity verification. Supports creating document transactions, uploading multi-spectral images, extracting data fields, and retrieving authentication results for over 3,400 global document types including driver's licenses, passports, and national IDs. Uses HTTP Basic authentication over HTTPS.
   version: '1.0'
   contact:
     name: Acuant Support
     url: https://support.acuant.com
-  x-api-id: acuant:acas
+  x-api-id: acuant:assureid-connect
 servers:
-- url: https://us.acas.acuant.net
+- url: https://services.assureid.net
   description: USA Production
-- url: https://eu.acas.acuant.net
+- url: https://us.assureid.acuant.net
+  description: USA Production (alternate)
+- url: https://eu.assureid.acuant.net
   description: EU Production
-- url: https://aus.acas.acuant.net
+- url: https://aus.assureid.acuant.net
   description: AUS Production
-- url: https://preview.acas.acuant.net
+- url: https://preview.assureid.acuant.net
   description: Preview / Sandbox
 security:
 - BasicAuth: []
@@ -100,12 +102,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     ValidationError:
       description: Validation or argument error
       content:
@@ -114,6 +110,12 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
       content:
         application/json:
           schema:
@@ -131,15 +133,54 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    DocumentImage:
       type: object
       properties:
-        Code:
+        GlareMetric:
+          type: number
+          format: float
+        SharpnessMetric:
+          type: number
+          format: float
+        Light:
           type: integer
-          description: HTTP status code
-        Message:
+          description: Light source used
+        Side:
+          type: integer
+          description: Document side
+        Uri:
           type: string
-          description: Error description
+          format: uri
+          description: URI of corrected orientation image
+    ImageMetrics:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Glare quality score (0-100)
+        SharpnessMetric:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Sharpness quality score (0-100)
+    ImageData:
+      type: object
+      required:
+      - MimeType
+      - Data
+      properties:
+        MimeType:
+          type: string
+          description: MIME type of the image
+          example: image/jpeg
+        Data:
+          type: string
+          format: byte
+          description: Base64-encoded image data
     ImageUploadRequest:
       type: object
       required:
@@ -167,54 +208,15 @@ components:
           type: boolean
           description: Whether to calculate image quality metrics
           default: true
-    ImageData:
-      type: object
-      required:
-      - MimeType
-      - Data
-      properties:
-        MimeType:
-          type: string
-          description: MIME type of the image
-          example: image/jpeg
-        Data:
-          type: string
-          format: byte
-          description: Base64-encoded image data
-    ImageMetrics:
+    Error:
       type: object
       properties:
-        GlareMetric:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Glare quality score (0-100)
-        SharpnessMetric:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Sharpness quality score (0-100)
-    DocumentImage:
-      type: object
-      properties:
-        GlareMetric:
-          type: number
-          format: float
-        SharpnessMetric:
-          type: number
-          format: float
-        Light:
+        Code:
           type: integer
-          description: Light source used
-        Side:
-          type: integer
-          description: Document side
-        Uri:
+          description: HTTP status code
+        Message:
           type: string
-          format: uri
-          description: URI of corrected orientation image
+          description: Error description
   parameters:
     instanceId:
       name: instanceId
@@ -228,9 +230,4 @@ components:
     BasicAuth:
       type: http
       scheme: basic
-      description: HTTP Basic authentication. Credentials encoded as Base64("username:password") in the Authorization header.
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: JWT bearer token obtained from the /api/v1/token endpoint.
+      description: HTTP Basic Authentication. Credentials formatted as "name:password" and base64-encoded, transmitted via Authorization header over HTTPS.
