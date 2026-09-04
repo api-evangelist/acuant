@@ -26,16 +26,18 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: enterprise
-  onboarding: self-serve
+  onboarding: unknown
   trial: false
   try_now: false
   public: false
-  label: Enterprise · Self-serve signup
-  confidence: high
+  label: Enterprise
+  confidence: medium
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - security
+  - {url: 'https://www.acuant.com', status: 301, note: 'declared website redirects to https://www.gbg.com/en-us/ — a different registrable domain (acuant.com -> gbg.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/acuant.png
 url: https://raw.githubusercontent.com/api-evangelist/acuant/refs/heads/main/apis.yml
