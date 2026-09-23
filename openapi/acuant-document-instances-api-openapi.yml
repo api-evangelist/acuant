@@ -107,37 +107,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    DocumentImage:
-      type: object
-      properties:
-        GlareMetric:
-          type: number
-          format: float
-        SharpnessMetric:
-          type: number
-          format: float
-        Light:
-          type: integer
-          description: Light source used
-        Side:
-          type: integer
-          description: Document side
-        Uri:
-          type: string
-          format: uri
-          description: URI of corrected orientation image
-    DocumentField:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: Field name (e.g., "First Name", "Date of Birth")
-        Value:
-          type: string
-          description: Extracted field value
-        DataSource:
-          type: string
-          description: Source of the data extraction
     DocumentType:
       type: object
       properties:
@@ -159,6 +128,106 @@ components:
         Series:
           type: string
           description: Document series identifier
+    DeviceType:
+      type: object
+      properties:
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SensorType:
+          type: integer
+          description: Sensor type (0=Scanner, 1=Camera, 2=Mobile)
+          enum:
+          - 0
+          - 1
+          - 2
+    DocumentImage:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+        SharpnessMetric:
+          type: number
+          format: float
+        Light:
+          type: integer
+          description: Light source used
+        Side:
+          type: integer
+          description: Document side
+        Uri:
+          type: string
+          format: uri
+          description: URI of corrected orientation image
+    DocumentClassification:
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/DocumentType'
+        ClassificationDetails:
+          type: object
+          properties:
+            Front:
+              type: object
+            Back:
+              type: object
+    Document:
+      type: object
+      properties:
+        InstanceId:
+          type: string
+          format: uuid
+          description: Instance identifier
+        Classification:
+          $ref: '#/components/schemas/DocumentClassification'
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentField'
+        AuthenticationSensitivity:
+          type: integer
+          description: Authentication sensitivity level
+        Images:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentImage'
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    DocumentField:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: Field name (e.g., "First Name", "Date of Birth")
+        Value:
+          type: string
+          description: Extracted field value
+        DataSource:
+          type: string
+          description: Source of the data extraction
+    DeviceInfo:
+      type: object
+      properties:
+        Manufacturer:
+          type: string
+          description: Device manufacturer name
+        Model:
+          type: string
+          description: Device model
+        SerialNumber:
+          type: string
+          description: Device serial number
+        Type:
+          $ref: '#/components/schemas/DeviceType'
     DocumentCreateRequest:
       type: object
       required:
@@ -183,84 +252,9 @@ components:
           description: Manual crop coordinates if applicable
         Device:
           $ref: '#/components/schemas/DeviceInfo'
-    DocumentClassification:
-      type: object
-      properties:
-        Type:
-          $ref: '#/components/schemas/DocumentType'
-        ClassificationDetails:
-          type: object
-          properties:
-            Front:
-              type: object
-            Back:
-              type: object
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
-          type: string
-          description: Error description
-    DeviceInfo:
-      type: object
-      properties:
-        Manufacturer:
-          type: string
-          description: Device manufacturer name
-        Model:
-          type: string
-          description: Device model
-        SerialNumber:
-          type: string
-          description: Device serial number
-        Type:
-          $ref: '#/components/schemas/DeviceType'
-    DeviceType:
-      type: object
-      properties:
-        Manufacturer:
-          type: string
-        Model:
-          type: string
-        SensorType:
-          type: integer
-          description: Sensor type (0=Scanner, 1=Camera, 2=Mobile)
-          enum:
-          - 0
-          - 1
-          - 2
-    Document:
-      type: object
-      properties:
-        InstanceId:
-          type: string
-          format: uuid
-          description: Instance identifier
-        Classification:
-          $ref: '#/components/schemas/DocumentClassification'
-        Fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentField'
-        AuthenticationSensitivity:
-          type: integer
-          description: Authentication sensitivity level
-        Images:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentImage'
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
+    InternalServerError:
+      description: Server error
       content:
         application/json:
           schema:
@@ -271,8 +265,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server error
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
       content:
         application/json:
           schema:

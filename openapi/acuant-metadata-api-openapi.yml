@@ -80,16 +80,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Subscription:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: uuid
-        Name:
-          type: string
-        IsActive:
-          type: boolean
     DocumentType:
       type: object
       properties:
@@ -111,15 +101,6 @@ components:
         Series:
           type: string
           description: Document series identifier
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
-          type: string
-          description: Error description
     DocumentLogEntry:
       type: object
       properties:
@@ -133,6 +114,25 @@ components:
           type: string
         Status:
           type: string
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    Subscription:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+        IsActive:
+          type: boolean
   responses:
     Unauthorized:
       description: Authentication failure

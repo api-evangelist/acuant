@@ -24,7 +24,8 @@
     "acuant-acas-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "acuant-assureid-connect-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "acuant-frm-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "acuant-passive-liveness-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+    "acuant-passive-liveness-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "acuant-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",

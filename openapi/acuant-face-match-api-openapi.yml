@@ -79,6 +79,30 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    FaceMatchData:
+      type: object
+      required:
+      - ImageOne
+      - ImageTwo
+      properties:
+        ImageOne:
+          type: string
+          format: byte
+          description: Base64-encoded first facial image (e.g., from identity document)
+        ImageTwo:
+          type: string
+          format: byte
+          description: Base64-encoded second facial image (e.g., live selfie)
+    FaceMatchRequest:
+      type: object
+      required:
+      - Settings
+      - Data
+      properties:
+        Settings:
+          $ref: '#/components/schemas/FaceMatchSettings'
+        Data:
+          $ref: '#/components/schemas/FaceMatchData'
     FaceMatchResult:
       type: object
       properties:
@@ -104,20 +128,6 @@ components:
           - integer
           - 'null'
           description: Numeric error code if an error occurred
-    FaceMatchData:
-      type: object
-      required:
-      - ImageOne
-      - ImageTwo
-      properties:
-        ImageOne:
-          type: string
-          format: byte
-          description: Base64-encoded first facial image (e.g., from identity document)
-        ImageTwo:
-          type: string
-          format: byte
-          description: Base64-encoded second facial image (e.g., live selfie)
     Error:
       type: object
       properties:
@@ -127,16 +137,6 @@ components:
         Message:
           type: string
           description: Error description
-    FaceMatchRequest:
-      type: object
-      required:
-      - Settings
-      - Data
-      properties:
-        Settings:
-          $ref: '#/components/schemas/FaceMatchSettings'
-        Data:
-          $ref: '#/components/schemas/FaceMatchData'
     FaceMatchSettings:
       type: object
       required:

@@ -76,20 +76,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    LivenessRequest:
-      type: object
-      required:
-      - SubscriptionId
-      - Image
-      properties:
-        SubscriptionId:
-          type: string
-          format: uuid
-          description: Acuant subscription identifier
-        Image:
-          type: string
-          format: byte
-          description: Base64-encoded selfie image. Recommended minimum resolution for reliable liveness detection.
     Error:
       type: object
       properties:
@@ -129,6 +115,20 @@ components:
           - integer
           - 'null'
           description: Numeric error code if processing failed
+    LivenessRequest:
+      type: object
+      required:
+      - SubscriptionId
+      - Image
+      properties:
+        SubscriptionId:
+          type: string
+          format: uuid
+          description: Acuant subscription identifier
+        Image:
+          type: string
+          format: byte
+          description: Base64-encoded selfie image. Recommended minimum resolution for reliable liveness detection.
   securitySchemes:
     BearerAuth:
       type: http

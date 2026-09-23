@@ -85,6 +85,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: Error code
+        Message:
+          type: string
+          description: Error description
     TokenResponse:
       type: object
       properties:
@@ -113,15 +122,6 @@ components:
           type: string
           format: date-time
           description: Token expiration timestamp
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: Error code
-        Message:
-          type: string
-          description: Error description
   securitySchemes:
     BasicAuth:
       type: http

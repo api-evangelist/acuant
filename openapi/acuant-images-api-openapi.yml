@@ -101,38 +101,36 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    ValidationError:
-      description: Validation or argument error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Conflict:
-      description: Duplicate submission attempt
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    ImageData:
+      type: object
+      required:
+      - MimeType
+      - Data
+      properties:
+        MimeType:
+          type: string
+          description: MIME type of the image
+          example: image/jpeg
+        Data:
+          type: string
+          format: byte
+          description: Base64-encoded image data
+    ImageMetrics:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Glare quality score (0-100)
+        SharpnessMetric:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Sharpness quality score (0-100)
     DocumentImage:
       type: object
       properties:
@@ -152,35 +150,15 @@ components:
           type: string
           format: uri
           description: URI of corrected orientation image
-    ImageMetrics:
+    Error:
       type: object
       properties:
-        GlareMetric:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Glare quality score (0-100)
-        SharpnessMetric:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Sharpness quality score (0-100)
-    ImageData:
-      type: object
-      required:
-      - MimeType
-      - Data
-      properties:
-        MimeType:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
           type: string
-          description: MIME type of the image
-          example: image/jpeg
-        Data:
-          type: string
-          format: byte
-          description: Base64-encoded image data
+          description: Error description
     ImageUploadRequest:
       type: object
       required:
@@ -208,15 +186,37 @@ components:
           type: boolean
           description: Whether to calculate image quality metrics
           default: true
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
-          type: string
-          description: Error description
+  responses:
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Duplicate submission attempt
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: Validation or argument error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     instanceId:
       name: instanceId
