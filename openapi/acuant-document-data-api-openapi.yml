@@ -68,24 +68,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    DocumentDataRequest:
-      type: object
-      properties:
-        DataType:
-          type: integer
-          description: Type of non-imaging data (MRZ, magnetic stripe, etc.)
-        Data:
-          type: string
-          description: Raw data string
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
-          type: string
-          description: Error description
     DocumentField:
       type: object
       properties:
@@ -98,13 +80,25 @@ components:
         DataSource:
           type: string
           description: Source of the data extraction
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    DocumentDataRequest:
+      type: object
+      properties:
+        DataType:
+          type: integer
+          description: Type of non-imaging data (MRZ, magnetic stripe, etc.)
+        Data:
+          type: string
+          description: Raw data string
   responses:
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
       content:
@@ -113,6 +107,12 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
       content:
         application/json:
           schema:

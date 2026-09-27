@@ -80,27 +80,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    DocumentType:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: uuid
-        Name:
-          type: string
-          description: Document type name
-        Class:
-          type: string
-          description: Document class (Identification, Passport, etc.)
-        IssuerCode:
-          type: string
-          description: Issuing country/entity code
-        IssuerName:
-          type: string
-          description: Issuing country/entity name
-        Series:
-          type: string
-          description: Document series identifier
     DocumentLogEntry:
       type: object
       properties:
@@ -123,6 +102,27 @@ components:
         Message:
           type: string
           description: Error description
+    DocumentType:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+          description: Document type name
+        Class:
+          type: string
+          description: Document class (Identification, Passport, etc.)
+        IssuerCode:
+          type: string
+          description: Issuing country/entity code
+        IssuerName:
+          type: string
+          description: Issuing country/entity name
+        Series:
+          type: string
+          description: Document series identifier
     Subscription:
       type: object
       properties:

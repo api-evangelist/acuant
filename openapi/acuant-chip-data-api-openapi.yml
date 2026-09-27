@@ -60,45 +60,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    ChipDataResult:
-      type: object
-      properties:
-        Authenticated:
-          type: boolean
-          description: Whether chip authentication succeeded
-        ChipFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentField'
-    ChipDataRequest:
-      type: object
-      properties:
-        ChipData:
-          type: string
-          description: NFC/RFID chip data payload
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
-          type: string
-          description: Error description
     DocumentField:
       type: object
       properties:
@@ -111,6 +73,44 @@ components:
         DataSource:
           type: string
           description: Source of the data extraction
+    ChipDataResult:
+      type: object
+      properties:
+        Authenticated:
+          type: boolean
+          description: Whether chip authentication succeeded
+        ChipFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentField'
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
+    ChipDataRequest:
+      type: object
+      properties:
+        ChipData:
+          type: string
+          description: NFC/RFID chip data payload
+  responses:
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BasicAuth:
       type: http

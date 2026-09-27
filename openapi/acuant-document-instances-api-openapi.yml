@@ -107,72 +107,18 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    DocumentType:
+    DocumentField:
       type: object
       properties:
-        Id:
-          type: string
-          format: uuid
         Name:
           type: string
-          description: Document type name
-        Class:
+          description: Field name (e.g., "First Name", "Date of Birth")
+        Value:
           type: string
-          description: Document class (Identification, Passport, etc.)
-        IssuerCode:
+          description: Extracted field value
+        DataSource:
           type: string
-          description: Issuing country/entity code
-        IssuerName:
-          type: string
-          description: Issuing country/entity name
-        Series:
-          type: string
-          description: Document series identifier
-    DeviceType:
-      type: object
-      properties:
-        Manufacturer:
-          type: string
-        Model:
-          type: string
-        SensorType:
-          type: integer
-          description: Sensor type (0=Scanner, 1=Camera, 2=Mobile)
-          enum:
-          - 0
-          - 1
-          - 2
-    DocumentImage:
-      type: object
-      properties:
-        GlareMetric:
-          type: number
-          format: float
-        SharpnessMetric:
-          type: number
-          format: float
-        Light:
-          type: integer
-          description: Light source used
-        Side:
-          type: integer
-          description: Document side
-        Uri:
-          type: string
-          format: uri
-          description: URI of corrected orientation image
-    DocumentClassification:
-      type: object
-      properties:
-        Type:
-          $ref: '#/components/schemas/DocumentType'
-        ClassificationDetails:
-          type: object
-          properties:
-            Front:
-              type: object
-            Back:
-              type: object
+          description: Source of the data extraction
     Document:
       type: object
       properties:
@@ -202,18 +148,25 @@ components:
         Message:
           type: string
           description: Error description
-    DocumentField:
+    DocumentImage:
       type: object
       properties:
-        Name:
+        GlareMetric:
+          type: number
+          format: float
+        SharpnessMetric:
+          type: number
+          format: float
+        Light:
+          type: integer
+          description: Light source used
+        Side:
+          type: integer
+          description: Document side
+        Uri:
           type: string
-          description: Field name (e.g., "First Name", "Date of Birth")
-        Value:
-          type: string
-          description: Extracted field value
-        DataSource:
-          type: string
-          description: Source of the data extraction
+          format: uri
+          description: URI of corrected orientation image
     DeviceInfo:
       type: object
       properties:
@@ -228,6 +181,53 @@ components:
           description: Device serial number
         Type:
           $ref: '#/components/schemas/DeviceType'
+    DocumentType:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+          description: Document type name
+        Class:
+          type: string
+          description: Document class (Identification, Passport, etc.)
+        IssuerCode:
+          type: string
+          description: Issuing country/entity code
+        IssuerName:
+          type: string
+          description: Issuing country/entity name
+        Series:
+          type: string
+          description: Document series identifier
+    DocumentClassification:
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/DocumentType'
+        ClassificationDetails:
+          type: object
+          properties:
+            Front:
+              type: object
+            Back:
+              type: object
+    DeviceType:
+      type: object
+      properties:
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SensorType:
+          type: integer
+          description: Sensor type (0=Scanner, 1=Camera, 2=Mobile)
+          enum:
+          - 0
+          - 1
+          - 2
     DocumentCreateRequest:
       type: object
       required:
@@ -253,8 +253,8 @@ components:
         Device:
           $ref: '#/components/schemas/DeviceInfo'
   responses:
-    InternalServerError:
-      description: Server error
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -265,14 +265,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication failure
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
+    InternalServerError:
+      description: Server error
       content:
         application/json:
           schema:
