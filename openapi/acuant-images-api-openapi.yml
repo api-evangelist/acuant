@@ -102,20 +102,49 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ImageData:
+    DocumentImage:
       type: object
-      required:
-      - MimeType
-      - Data
       properties:
-        MimeType:
+        GlareMetric:
+          type: number
+          format: float
+        SharpnessMetric:
+          type: number
+          format: float
+        Light:
+          type: integer
+          description: Light source used
+        Side:
+          type: integer
+          description: Document side
+        Uri:
           type: string
-          description: MIME type of the image
-          example: image/jpeg
-        Data:
+          format: uri
+          description: URI of corrected orientation image
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
           type: string
-          format: byte
-          description: Base64-encoded image data
+          description: Error description
+    ImageMetrics:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Glare quality score (0-100)
+        SharpnessMetric:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Sharpness quality score (0-100)
     ImageUploadRequest:
       type: object
       required:
@@ -143,52 +172,44 @@ components:
           type: boolean
           description: Whether to calculate image quality metrics
           default: true
-    ImageMetrics:
+    ImageData:
       type: object
+      required:
+      - MimeType
+      - Data
       properties:
-        GlareMetric:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Glare quality score (0-100)
-        SharpnessMetric:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Sharpness quality score (0-100)
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
+        MimeType:
           type: string
-          description: Error description
-    DocumentImage:
-      type: object
-      properties:
-        GlareMetric:
-          type: number
-          format: float
-        SharpnessMetric:
-          type: number
-          format: float
-        Light:
-          type: integer
-          description: Light source used
-        Side:
-          type: integer
-          description: Document side
-        Uri:
+          description: MIME type of the image
+          example: image/jpeg
+        Data:
           type: string
-          format: uri
-          description: URI of corrected orientation image
+          format: byte
+          description: Base64-encoded image data
+  parameters:
+    instanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: Document instance GUID
+      schema:
+        type: string
+        format: uuid
   responses:
     NotFound:
       description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
       content:
         application/json:
           schema:
@@ -205,27 +226,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    instanceId:
-      name: instanceId
-      in: path
-      required: true
-      description: Document instance GUID
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     BasicAuth:
       type: http

@@ -80,6 +80,15 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
     DocumentLogEntry:
       type: object
       properties:
@@ -93,15 +102,6 @@ components:
           type: string
         Status:
           type: string
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
-          type: string
-          description: Error description
     DocumentType:
       type: object
       properties:

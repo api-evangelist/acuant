@@ -67,7 +67,25 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    instanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: Document instance GUID
+      schema:
+        type: string
+        format: uuid
   schemas:
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
     DocumentField:
       type: object
       properties:
@@ -80,15 +98,6 @@ components:
         DataSource:
           type: string
           description: Source of the data extraction
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
-          type: string
-          description: Error description
     DocumentDataRequest:
       type: object
       properties:
@@ -105,27 +114,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     InternalServerError:
       description: Server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    instanceId:
-      name: instanceId
-      in: path
-      required: true
-      description: Document instance GUID
-      schema:
-        type: string
-        format: uuid
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BasicAuth:
       type: http
