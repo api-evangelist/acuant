@@ -60,13 +60,20 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    ChipDataRequest:
-      type: object
-      properties:
-        ChipData:
-          type: string
-          description: NFC/RFID chip data payload
     Error:
       type: object
       properties:
@@ -76,16 +83,6 @@ components:
         Message:
           type: string
           description: Error description
-    ChipDataResult:
-      type: object
-      properties:
-        Authenticated:
-          type: boolean
-          description: Whether chip authentication succeeded
-        ChipFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentField'
     DocumentField:
       type: object
       properties:
@@ -98,19 +95,22 @@ components:
         DataSource:
           type: string
           description: Source of the data extraction
-  responses:
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ChipDataRequest:
+      type: object
+      properties:
+        ChipData:
+          type: string
+          description: NFC/RFID chip data payload
+    ChipDataResult:
+      type: object
+      properties:
+        Authenticated:
+          type: boolean
+          description: Whether chip authentication succeeded
+        ChipFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentField'
   securitySchemes:
     BasicAuth:
       type: http

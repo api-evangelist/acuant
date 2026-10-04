@@ -67,15 +67,25 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    instanceId:
-      name: instanceId
-      in: path
-      required: true
-      description: Document instance GUID
-      schema:
-        type: string
-        format: uuid
+  responses:
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -107,25 +117,15 @@ components:
         Data:
           type: string
           description: Raw data string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    instanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: Document instance GUID
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     BasicAuth:
       type: http

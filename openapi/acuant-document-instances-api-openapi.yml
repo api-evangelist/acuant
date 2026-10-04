@@ -106,7 +106,41 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Inactive subscription
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: HTTP status code
+        Message:
+          type: string
+          description: Error description
     Document:
       type: object
       properties:
@@ -127,69 +161,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DocumentImage'
-    DocumentImage:
-      type: object
-      properties:
-        GlareMetric:
-          type: number
-          format: float
-        SharpnessMetric:
-          type: number
-          format: float
-        Light:
-          type: integer
-          description: Light source used
-        Side:
-          type: integer
-          description: Document side
-        Uri:
-          type: string
-          format: uri
-          description: URI of corrected orientation image
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: HTTP status code
-        Message:
-          type: string
-          description: Error description
-    DeviceType:
-      type: object
-      properties:
-        Manufacturer:
-          type: string
-        Model:
-          type: string
-        SensorType:
-          type: integer
-          description: Sensor type (0=Scanner, 1=Camera, 2=Mobile)
-          enum:
-          - 0
-          - 1
-          - 2
-    DocumentType:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: uuid
-        Name:
-          type: string
-          description: Document type name
-        Class:
-          type: string
-          description: Document class (Identification, Passport, etc.)
-        IssuerCode:
-          type: string
-          description: Issuing country/entity code
-        IssuerName:
-          type: string
-          description: Issuing country/entity name
-        Series:
-          type: string
-          description: Document series identifier
     DocumentField:
       type: object
       properties:
@@ -226,18 +197,60 @@ components:
           description: Manual crop coordinates if applicable
         Device:
           $ref: '#/components/schemas/DeviceInfo'
-    DocumentClassification:
+    DeviceType:
       type: object
       properties:
-        Type:
-          $ref: '#/components/schemas/DocumentType'
-        ClassificationDetails:
-          type: object
-          properties:
-            Front:
-              type: object
-            Back:
-              type: object
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SensorType:
+          type: integer
+          description: Sensor type (0=Scanner, 1=Camera, 2=Mobile)
+          enum:
+          - 0
+          - 1
+          - 2
+    DocumentType:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+          description: Document type name
+        Class:
+          type: string
+          description: Document class (Identification, Passport, etc.)
+        IssuerCode:
+          type: string
+          description: Issuing country/entity code
+        IssuerName:
+          type: string
+          description: Issuing country/entity name
+        Series:
+          type: string
+          description: Document series identifier
+    DocumentImage:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+        SharpnessMetric:
+          type: number
+          format: float
+        Light:
+          type: integer
+          description: Light source used
+        Side:
+          type: integer
+          description: Document side
+        Uri:
+          type: string
+          format: uri
+          description: URI of corrected orientation image
     DeviceInfo:
       type: object
       properties:
@@ -252,6 +265,18 @@ components:
           description: Device serial number
         Type:
           $ref: '#/components/schemas/DeviceType'
+    DocumentClassification:
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/DocumentType'
+        ClassificationDetails:
+          type: object
+          properties:
+            Front:
+              type: object
+            Back:
+              type: object
   parameters:
     instanceId:
       name: instanceId
@@ -261,31 +286,6 @@ components:
       schema:
         type: string
         format: uuid
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Inactive subscription
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     BasicAuth:
       type: http

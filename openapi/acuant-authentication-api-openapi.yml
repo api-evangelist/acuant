@@ -85,16 +85,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    TokenValidationResult:
-      type: object
-      properties:
-        isValid:
-          type: boolean
-          description: Whether the token is currently valid
-        expiresAt:
-          type: string
-          format: date-time
-          description: Token expiration timestamp
     TokenResponse:
       type: object
       properties:
@@ -122,6 +112,16 @@ components:
         Message:
           type: string
           description: Error description
+    TokenValidationResult:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+          description: Whether the token is currently valid
+        expiresAt:
+          type: string
+          format: date-time
+          description: Token expiration timestamp
   securitySchemes:
     BasicAuth:
       type: http

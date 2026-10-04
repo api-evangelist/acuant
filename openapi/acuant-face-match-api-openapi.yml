@@ -88,6 +88,15 @@ components:
         Message:
           type: string
           description: Error description
+    FaceMatchSettings:
+      type: object
+      required:
+      - SubscriptionId
+      properties:
+        SubscriptionId:
+          type: string
+          format: uuid
+          description: Acuant subscription identifier
     FaceMatchData:
       type: object
       required:
@@ -137,15 +146,6 @@ components:
           $ref: '#/components/schemas/FaceMatchSettings'
         Data:
           $ref: '#/components/schemas/FaceMatchData'
-    FaceMatchSettings:
-      type: object
-      required:
-      - SubscriptionId
-      properties:
-        SubscriptionId:
-          type: string
-          format: uuid
-          description: Acuant subscription identifier
   securitySchemes:
     BearerAuth:
       type: http
