@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: Acuant Plans and Pricing
 description: >-
   Acuant (now part of GBG) offers identity verification and document
@@ -79,3 +83,41 @@ plans:
       notes: >-
         Contact Acuant/GBG sales for bundled enterprise agreement.
         Support included at support.acuant.com.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - negotiated
+  units: []
+  plans:
+  - name: IDScan OCR SDK
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: AcuantGo Mobile SDK Trial
+    access: trial
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: AssureID Connect Enterprise
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: FRM + Passive Liveness Enterprise
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Bundled Identity Platform
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
