@@ -60,19 +60,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -83,18 +70,6 @@ components:
         Message:
           type: string
           description: Error description
-    DocumentField:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: Field name (e.g., "First Name", "Date of Birth")
-        Value:
-          type: string
-          description: Extracted field value
-        DataSource:
-          type: string
-          description: Source of the data extraction
     ChipDataRequest:
       type: object
       properties:
@@ -111,6 +86,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DocumentField'
+    DocumentField:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: Field name (e.g., "First Name", "Date of Birth")
+        Value:
+          type: string
+          description: Extracted field value
+        DataSource:
+          type: string
+          description: Source of the data extraction
+  responses:
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BasicAuth:
       type: http

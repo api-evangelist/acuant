@@ -79,13 +79,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -106,6 +99,19 @@ components:
           type: string
         IsActive:
           type: boolean
+    DocumentLogEntry:
+      type: object
+      properties:
+        InstanceId:
+          type: string
+          format: uuid
+        Timestamp:
+          type: string
+          format: date-time
+        DocumentType:
+          type: string
+        Status:
+          type: string
     DocumentType:
       type: object
       properties:
@@ -127,19 +133,13 @@ components:
         Series:
           type: string
           description: Document series identifier
-    DocumentLogEntry:
-      type: object
-      properties:
-        InstanceId:
-          type: string
-          format: uuid
-        Timestamp:
-          type: string
-          format: date-time
-        DocumentType:
-          type: string
-        Status:
-          type: string
+  responses:
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BasicAuth:
       type: http
