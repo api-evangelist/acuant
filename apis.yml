@@ -181,6 +181,8 @@ apis:
   humanURL: https://www.acuant.com/document-centric-verification
   baseURL: https://services.assureid.net
   tags:
+  - Face Matching
+  tags_raw:
   - Face Match
   properties:
   - type: OpenAPI
