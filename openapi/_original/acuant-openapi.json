@@ -1,0 +1,404 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "FaceID-API V1",
+    "description": "The Acuant FaceID API allows authorized users to request face assessments.",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/facematch": {
+      "post": {
+        "tags": [
+          "Operations for Facial Matching"
+        ],
+        "summary": "PostFaceMatch",
+        "description": "Clients should rely on the <b>IsMatch</b> property rather than the <b>Score</b> (scores are normalized\nto the range 0-100, where 80 or higher is considered a match).  Images are never stored by the service and cannot be retrieved.\n\n\n<b>Payload Size</b>\n\n\n•\tThe body of the request should be of type application/json with the images encoded as base64 text.\n\n•\tBase64 encoding introduces a 33% overhead, effectively limiting the combined files sizes of the two images to 3MB.\n\n•\tThe total size of the request has a payload limit of 4MB.\n\n\n<b>Image Notes</b>\n\n\n•\tImages should be in portrait mode and contain only the facial image.\n\n•\tImages that are not in portrait mode will be rotated (based on EXIF information) and retried. Note that this\nwill require additional processing time.\n\n•\tAn image that does not contain a face, or contains multiple faces, should return a score of 0.\n\n\n<b>Face Standard and Face Enhanced</b>\n\n\n•\tThe service accepts images in the following formats: JPEG, BMP, PNG, and GIF (first frame).\n\n•\tThe minimum image size is 1KB (1024 bytes).\n\n•\tThe minimum face size is 36 x 36 pixels (in a 1920 x 1080 pixel image).\n\n•\tThe maximum face size is 4096 x 4096 pixels.\n\n•\tThe best results come from an image that is frontal, clear, 200 x 200 pixels or higher with 100 pixels between the eyes.\n\n\n<b>Face Government</b>\n\n\n•\tThe service accepts images in the following formats: JPEG, BMP, PNG, and GIF (first frame).\n\n•\tThe maximum photo size is 2000 x 2000 pixels.\n\n•\tThe minimum is 24 pixels between the eyes.\n",
+        "requestBody": {
+          "description": "Request information for the facial match.  It is preferred to provide Subscription ID as part of the Authorization header.  If both are provided, they must match.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FaceMatchRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FaceMatchRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FaceMatchRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/FaceMatchRequest"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/FaceMatchRequest"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/FaceMatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the result of the comparison between two facial images, each of which contains a single face.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaceMatchResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaceMatchResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaceMatchResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaceMatchResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaceMatchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The comparison could not be performed due to image content or image quality, or the request was malformed."
+          },
+          "401": {
+            "description": "The authorization header is missing or contains invalid credentials."
+          },
+          "501": {
+            "description": "The provider requested by the subscription is not implemented. Please contact Acuant Sales / Support."
+          },
+          "500": {
+            "description": "Internal Server error"
+          }
+        },
+        "security": [
+          { },
+          { }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Operations for Facial Matching"
+        ],
+        "summary": "GetFaceMatch",
+        "description": "Images are never stored by the service and cannot be retrieved.\n\nIf the transaction ID was found:\n```\n{\n  \"Score\": 92,\n  \"Datetime\": \"2/5/2019 5:47:07 PM\",\n  \"IsMatch\": true\n}\n```\nIf the transaction ID was not found:\n```\n{\n  \"Score\": 0,\n  \"Datetime\": null,\n  \"IsMatch\": false\n}\n```",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "query",
+            "description": "Transaction ID of the facial match",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "subscriptionId",
+            "in": "query",
+            "description": "Subscription used for the facial match.  It is preferred to provide Subscription ID as part of the Authorization header.  If both are provided, they must match.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the result of the comparison between two facial images, each of which contains a single face.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionData"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionData"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionData"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionData"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionData"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The comparison could not be performed due to image content or image quality, or the request was malformed."
+          },
+          "401": {
+            "description": "The authorization header is missing or contains invalid credentials."
+          },
+          "500": {
+            "description": "Internal Server error"
+          }
+        },
+        "security": [
+          { },
+          { }
+        ]
+      }
+    },
+    "/api/v1/available": {
+      "get": {
+        "tags": [
+          "HealthCheck"
+        ],
+        "summary": "Checks the status of Services within the API\n(Reports findings to the log output)",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error"
+          }
+        },
+        "security": [
+          { },
+          { }
+        ]
+      }
+    },
+    "/api/v1/ping": {
+      "get": {
+        "tags": [
+          "HealthCheck"
+        ],
+        "summary": "Checks that the service is reachable",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server error"
+          }
+        },
+        "security": [
+          { },
+          { }
+        ]
+      }
+    },
+    "/api/v1/status": {
+      "get": {
+        "tags": [
+          "Operations for Checking the Status of the Service"
+        ],
+        "summary": "Status",
+        "responses": {
+          "200": {
+            "description": "Returns current Status for the service",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error"
+          }
+        },
+        "security": [
+          { },
+          { }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Data": {
+        "required": [
+          "ImageOne",
+          "ImageTwo"
+        ],
+        "type": "object",
+        "properties": {
+          "ImageOne": {
+            "type": "string",
+            "description": "Base64 image",
+            "format": "byte"
+          },
+          "ImageTwo": {
+            "type": "string",
+            "description": "Base64 image",
+            "format": "byte"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Face Match Image Data.  Images are BASE-64 Encoded."
+      },
+      "FaceMatchRequest": {
+        "required": [
+          "Data"
+        ],
+        "type": "object",
+        "properties": {
+          "Data": {
+            "$ref": "#/components/schemas/Data"
+          },
+          "Settings": {
+            "$ref": "#/components/schemas/Settings"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Face Matching request object\n<list type=\"\"><item><term>Data</term><Description><see cref=\"P:Acuant.FaceId.Models.FaceMatchRequest.Data\">The Image Data (image pair)</see></Description></item><item><term>Settings</term><Description><see cref=\"P:Acuant.FaceId.Models.FaceMatchRequest.Settings\">Request settings</see></Description></item></list>"
+      },
+      "FaceMatchResponse": {
+        "type": "object",
+        "properties": {
+          "Score": {
+            "type": "integer",
+            "description": "A score representing the confidence level of the faces matching.",
+            "format": "int32"
+          },
+          "IsMatch": {
+            "type": "boolean",
+            "description": "True if <see cref=\"P:Acuant.FaceId.Models.FaceMatchResponse.Score\">Score</see> represents a confidence level indicating the faces match.",
+            "readOnly": true
+          },
+          "TransactionId": {
+            "type": "string",
+            "description": "A transaction identifier for later retrieval of data and for billing purposes.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Facial Match Result"
+      },
+      "Settings": {
+        "type": "object",
+        "properties": {
+          "SubscriptionId": {
+            "type": "string",
+            "description": "Subscription ID to authorize and bill for this transaction.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Face Match Request settings"
+      },
+      "TransactionData": {
+        "type": "object",
+        "properties": {
+          "Score": {
+            "type": "integer",
+            "description": "Match Score",
+            "format": "int32"
+          },
+          "Datetime": {
+            "type": "string",
+            "description": "UTC Datetime of the Face Match Transaction",
+            "nullable": true
+          },
+          "IsMatch": {
+            "type": "boolean",
+            "description": "True if the faces matched"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Transaction Information"
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "description": "Username and password",
+        "scheme": "basic"
+      },
+      "bearer": {
+        "type": "http",
+        "description": "Bearer Token",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "FaceMatch"
+    },
+    {
+      "name": "HealthCheck"
+    }
+  ]
+}

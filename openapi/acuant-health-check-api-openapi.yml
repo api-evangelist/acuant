@@ -1,0 +1,64 @@
+openapi: 3.2.0
+info:
+  title: FaceID-API V1 Health Check API
+  description: The Acuant FaceID API allows authorized users to request face assessments.
+  version: v1
+tags:
+- name: Health Check
+paths:
+  /api/v1/available:
+    get:
+      tags:
+      - Health Check
+      summary: Checks the status of Services within the API (Reports findings to the log…
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: boolean
+            application/json:
+              schema:
+                type: boolean
+            text/json:
+              schema:
+                type: boolean
+            application/xml:
+              schema:
+                type: boolean
+            text/xml:
+              schema:
+                type: boolean
+        '500':
+          description: Internal Server error
+      security:
+      - {}
+      - {}
+      operationId: getApiV1Available
+      x-operation-id-source: derived
+  /api/v1/ping:
+    get:
+      tags:
+      - Health Check
+      summary: Checks that the service is reachable
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server error
+      security:
+      - {}
+      - {}
+      operationId: getApiV1Ping
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      description: Username and password
+      scheme: basic
+    bearer:
+      type: http
+      description: Bearer Token
+      scheme: bearer

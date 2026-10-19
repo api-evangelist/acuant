@@ -98,24 +98,15 @@ components:
         DataSource:
           type: string
           description: Source of the data extraction
-  parameters:
-    instanceId:
-      name: instanceId
-      in: path
-      required: true
-      description: Document instance GUID
-      schema:
-        type: string
-        format: uuid
   responses:
-    NotFound:
-      description: Resource not found
+    InternalServerError:
+      description: Server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server error
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -126,6 +117,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    instanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: Document instance GUID
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     BasicAuth:
       type: http

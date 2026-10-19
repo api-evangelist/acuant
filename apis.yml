@@ -175,18 +175,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/acuant-document-instances-api-openapi.yml
-- aid: acuant:acuant-face-match-api
-  name: Acuant Face Match API
-  description: Facial comparison and matching operations
-  humanURL: https://www.acuant.com/document-centric-verification
-  baseURL: https://services.assureid.net
-  tags:
-  - Face Matching
-  tags_raw:
-  - Face Match
-  properties:
-  - type: OpenAPI
-    url: openapi/acuant-face-match-api-openapi.yml
 - aid: acuant:acuant-images-api
   name: Acuant Images API
   description: Submit and retrieve document images
@@ -219,6 +207,39 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/acuant-metadata-api-openapi.yml
+- aid: acuant:acuant-operations-for-checking-the-status-of-the-service-api
+  name: Acuant Operations for Checking the Status of the Service API
+  description: >-
+    The Operations for Checking the Status of the Service API from Acuant — 1 operation(s) for operations
+    for checking the status of the service.
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Operations for Checking the Status of the Service
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-operations-for-checking-the-status-of-the-service-api-openapi.yml
+- aid: acuant:acuant-operations-for-facial-matching-api
+  name: Acuant Operations for Facial Matching API
+  description: >-
+    The Operations for Facial Matching API from Acuant — 1 operation(s) for operations for facial matching.
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Operations for Facial Matching
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-operations-for-facial-matching-api-openapi.yml
+- aid: acuant:acuant-health-check-api
+  name: Acuant Health Check API
+  description: The Health Check API from Acuant — 2 operation(s) for health check.
+  humanURL: https://www.acuant.com/document-centric-verification
+  baseURL: https://services.assureid.net
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/acuant-health-check-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/acuant-agentic-access.yml

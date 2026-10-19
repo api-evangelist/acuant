@@ -70,12 +70,6 @@ components:
         Message:
           type: string
           description: Error description
-    ChipDataRequest:
-      type: object
-      properties:
-        ChipData:
-          type: string
-          description: NFC/RFID chip data payload
     ChipDataResult:
       type: object
       properties:
@@ -86,6 +80,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DocumentField'
+    ChipDataRequest:
+      type: object
+      properties:
+        ChipData:
+          type: string
+          description: NFC/RFID chip data payload
     DocumentField:
       type: object
       properties:

@@ -116,59 +116,6 @@ components:
         Message:
           type: string
           description: Error description
-    DocumentImage:
-      type: object
-      properties:
-        GlareMetric:
-          type: number
-          format: float
-        SharpnessMetric:
-          type: number
-          format: float
-        Light:
-          type: integer
-          description: Light source used
-        Side:
-          type: integer
-          description: Document side
-        Uri:
-          type: string
-          format: uri
-          description: URI of corrected orientation image
-    Document:
-      type: object
-      properties:
-        InstanceId:
-          type: string
-          format: uuid
-          description: Instance identifier
-        Classification:
-          $ref: '#/components/schemas/DocumentClassification'
-        Fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentField'
-        AuthenticationSensitivity:
-          type: integer
-          description: Authentication sensitivity level
-        Images:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentImage'
-    DeviceInfo:
-      type: object
-      properties:
-        Manufacturer:
-          type: string
-          description: Device manufacturer name
-        Model:
-          type: string
-          description: Device model
-        SerialNumber:
-          type: string
-          description: Device serial number
-        Type:
-          $ref: '#/components/schemas/DeviceType'
     DocumentClassification:
       type: object
       properties:
@@ -195,6 +142,59 @@ components:
           - 0
           - 1
           - 2
+    DeviceInfo:
+      type: object
+      properties:
+        Manufacturer:
+          type: string
+          description: Device manufacturer name
+        Model:
+          type: string
+          description: Device model
+        SerialNumber:
+          type: string
+          description: Device serial number
+        Type:
+          $ref: '#/components/schemas/DeviceType'
+    Document:
+      type: object
+      properties:
+        InstanceId:
+          type: string
+          format: uuid
+          description: Instance identifier
+        Classification:
+          $ref: '#/components/schemas/DocumentClassification'
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentField'
+        AuthenticationSensitivity:
+          type: integer
+          description: Authentication sensitivity level
+        Images:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentImage'
+    DocumentImage:
+      type: object
+      properties:
+        GlareMetric:
+          type: number
+          format: float
+        SharpnessMetric:
+          type: number
+          format: float
+        Light:
+          type: integer
+          description: Light source used
+        Side:
+          type: integer
+          description: Document side
+        Uri:
+          type: string
+          format: uri
+          description: URI of corrected orientation image
     DocumentCreateRequest:
       type: object
       required:
@@ -252,30 +252,15 @@ components:
         DataSource:
           type: string
           description: Source of the data extraction
-  parameters:
-    instanceId:
-      name: instanceId
-      in: path
-      required: true
-      description: Document instance GUID
-      schema:
-        type: string
-        format: uuid
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     InternalServerError:
       description: Server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -286,6 +271,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    instanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: Document instance GUID
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     BasicAuth:
       type: http

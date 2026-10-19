@@ -1,0 +1,290 @@
+openapi: 3.2.0
+info:
+  title: FaceID-API V1 Operations for Facial Matching API
+  description: The Acuant FaceID API allows authorized users to request face assessments.
+  version: v1
+tags:
+- name: Operations for Facial Matching
+paths:
+  /api/v1/facematch:
+    post:
+      tags:
+      - Operations for Facial Matching
+      summary: PostFaceMatch
+      description: 'Clients should rely on the IsMatch property rather than the Score (scores are normalized
+
+        to the range 0-100, where 80 or higher is considered a match). Images are never stored by the service and cannot be retrieved.
+
+
+        Payload Size
+
+
+        • The body of the request should be of type application/json with the images encoded as base64 text.
+
+
+        • Base64 encoding introduces a 33% overhead, effectively limiting the combined files sizes of the two images to 3MB.
+
+
+        • The total size of the request has a payload limit of 4MB.
+
+
+        Image Notes
+
+
+        • Images should be in portrait mode and contain only the facial image.
+
+
+        • Images that are not in portrait mode will be rotated (based on EXIF information) and retried. Note that this
+
+        will require additional processing time.
+
+
+        • An image that does not contain a face, or contains multiple faces, should return a score of 0.
+
+
+        Face Standard and Face Enhanced
+
+
+        • The service accepts images in the following formats: JPEG, BMP, PNG, and GIF (first frame).
+
+
+        • The minimum image size is 1KB (1024 bytes).
+
+
+        • The minimum face size is 36 x 36 pixels (in a 1920 x 1080 pixel image).
+
+
+        • The maximum face size is 4096 x 4096 pixels.
+
+
+        • The best results come from an image that is frontal, clear, 200 x 200 pixels or higher with 100 pixels between the eyes.
+
+
+        Face Government
+
+
+        • The service accepts images in the following formats: JPEG, BMP, PNG, and GIF (first frame).
+
+
+        • The maximum photo size is 2000 x 2000 pixels.
+
+
+        • The minimum is 24 pixels between the eyes.'
+      requestBody:
+        description: Request information for the facial match.  It is preferred to provide Subscription ID as part of the Authorization header.  If both are provided, they must match.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FaceMatchRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FaceMatchRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/FaceMatchRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FaceMatchRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/FaceMatchRequest'
+          application/*+xml:
+            schema:
+              $ref: '#/components/schemas/FaceMatchRequest'
+      responses:
+        '200':
+          description: Returns the result of the comparison between two facial images, each of which contains a single face.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FaceMatchResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaceMatchResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FaceMatchResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/FaceMatchResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/FaceMatchResponse'
+        '400':
+          description: The comparison could not be performed due to image content or image quality, or the request was malformed.
+        '401':
+          description: The authorization header is missing or contains invalid credentials.
+        '501':
+          description: The provider requested by the subscription is not implemented. Please contact Acuant Sales / Support.
+        '500':
+          description: Internal Server error
+      security:
+      - {}
+      - {}
+      operationId: postApiV1Facematch
+      x-operation-id-source: derived
+    get:
+      tags:
+      - Operations for Facial Matching
+      summary: GetFaceMatch
+      description: 'Images are never stored by the service and cannot be retrieved.
+
+
+        If the transaction ID was found:
+
+        ```
+
+        {
+
+        "Score": 92,
+
+        "Datetime": "2/5/2019 5:47:07 PM",
+
+        "IsMatch": true
+
+        }
+
+        ```
+
+        If the transaction ID was not found:
+
+        ```
+
+        {
+
+        "Score": 0,
+
+        "Datetime": null,
+
+        "IsMatch": false
+
+        }
+
+        ```'
+      parameters:
+      - name: transactionId
+        in: query
+        description: Transaction ID of the facial match
+        schema:
+          type: string
+          format: uuid
+      - name: subscriptionId
+        in: query
+        description: Subscription used for the facial match.  It is preferred to provide Subscription ID as part of the Authorization header.  If both are provided, they must match.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Returns the result of the comparison between two facial images, each of which contains a single face.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TransactionData'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionData'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TransactionData'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/TransactionData'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/TransactionData'
+        '400':
+          description: The comparison could not be performed due to image content or image quality, or the request was malformed.
+        '401':
+          description: The authorization header is missing or contains invalid credentials.
+        '500':
+          description: Internal Server error
+      security:
+      - {}
+      - {}
+      operationId: getApiV1Facematch
+      x-operation-id-source: derived
+components:
+  schemas:
+    Data:
+      required:
+      - ImageOne
+      - ImageTwo
+      type: object
+      properties:
+        ImageOne:
+          type: string
+          description: Base64 image
+          format: byte
+        ImageTwo:
+          type: string
+          description: Base64 image
+          format: byte
+      additionalProperties: false
+      description: Face Match Image Data.  Images are BASE-64 Encoded.
+    TransactionData:
+      type: object
+      properties:
+        Score:
+          type: integer
+          description: Match Score
+          format: int32
+        Datetime:
+          type:
+          - string
+          - 'null'
+          description: UTC Datetime of the Face Match Transaction
+        IsMatch:
+          type: boolean
+          description: True if the faces matched
+      additionalProperties: false
+      description: Transaction Information
+    FaceMatchRequest:
+      required:
+      - Data
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/Data'
+        Settings:
+          $ref: '#/components/schemas/Settings'
+      additionalProperties: false
+      description: 'Face Matching request object
+
+        <list type=""><item><term>Data</term><Description><see cref="P:Acuant.FaceId.Models.FaceMatchRequest.Data">The Image Data (image pair)</see></Description></item><item><term>Settings</term><Description><see cref="P:Acuant.FaceId.Models.FaceMatchRequest.Settings">Request settings</see></Description></item></list>'
+    Settings:
+      type: object
+      properties:
+        SubscriptionId:
+          type:
+          - string
+          - 'null'
+          description: Subscription ID to authorize and bill for this transaction.
+      additionalProperties: false
+      description: Face Match Request settings
+    FaceMatchResponse:
+      type: object
+      properties:
+        Score:
+          type: integer
+          description: A score representing the confidence level of the faces matching.
+          format: int32
+        IsMatch:
+          type: boolean
+          description: True if <see cref="P:Acuant.FaceId.Models.FaceMatchResponse.Score">Score</see> represents a confidence level indicating the faces match.
+          readOnly: true
+        TransactionId:
+          type: string
+          description: A transaction identifier for later retrieval of data and for billing purposes.
+          format: uuid
+      additionalProperties: false
+      description: Facial Match Result
+  securitySchemes:
+    basicAuth:
+      type: http
+      description: Username and password
+      scheme: basic
+    bearer:
+      type: http
+      description: Bearer Token
+      scheme: bearer

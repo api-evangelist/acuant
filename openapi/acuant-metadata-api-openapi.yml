@@ -89,16 +89,6 @@ components:
         Message:
           type: string
           description: Error description
-    Subscription:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: uuid
-        Name:
-          type: string
-        IsActive:
-          type: boolean
     DocumentLogEntry:
       type: object
       properties:
@@ -112,6 +102,16 @@ components:
           type: string
         Status:
           type: string
+    Subscription:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+        IsActive:
+          type: boolean
     DocumentType:
       type: object
       properties:

@@ -1,0 +1,49 @@
+openapi: 3.2.0
+info:
+  title: FaceID-API V1 Operations for Checking the Status of the…
+  description: The Acuant FaceID API allows authorized users to request face assessments.
+  version: v1
+tags:
+- name: Operations for Checking the Status of the Service
+paths:
+  /api/v1/status:
+    get:
+      tags:
+      - Operations for Checking the Status of the Service
+      summary: Status
+      responses:
+        '200':
+          description: Returns current Status for the service
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+        '500':
+          description: Internal Server error
+      security:
+      - {}
+      - {}
+      operationId: getApiV1Status
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      description: Username and password
+      scheme: basic
+    bearer:
+      type: http
+      description: Bearer Token
+      scheme: bearer

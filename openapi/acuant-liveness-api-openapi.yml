@@ -76,6 +76,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: Error code
+        Message:
+          type: string
+          description: Error description
     LivenessRequest:
       type: object
       required:
@@ -120,15 +129,6 @@ components:
           - integer
           - 'null'
           description: Numeric error code if processing failed
-    Error:
-      type: object
-      properties:
-        Code:
-          type: integer
-          description: Error code
-        Message:
-          type: string
-          description: Error description
   securitySchemes:
     BearerAuth:
       type: http

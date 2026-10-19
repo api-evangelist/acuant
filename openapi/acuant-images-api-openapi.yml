@@ -101,37 +101,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    ValidationError:
-      description: Validation or argument error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Conflict:
-      description: Duplicate submission attempt
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -142,20 +111,6 @@ components:
         Message:
           type: string
           description: Error description
-    ImageData:
-      type: object
-      required:
-      - MimeType
-      - Data
-      properties:
-        MimeType:
-          type: string
-          description: MIME type of the image
-          example: image/jpeg
-        Data:
-          type: string
-          format: byte
-          description: Base64-encoded image data
     ImageUploadRequest:
       type: object
       required:
@@ -217,6 +172,51 @@ components:
           minimum: 0
           maximum: 100
           description: Sharpness quality score (0-100)
+    ImageData:
+      type: object
+      required:
+      - MimeType
+      - Data
+      properties:
+        MimeType:
+          type: string
+          description: MIME type of the image
+          example: image/jpeg
+        Data:
+          type: string
+          format: byte
+          description: Base64-encoded image data
+  responses:
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Duplicate submission attempt
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: Validation or argument error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     instanceId:
       name: instanceId
