@@ -214,7 +214,8 @@ apis:
     for checking the status of the service.
   humanURL: https://www.acuant.com/document-centric-verification
   baseURL: https://services.assureid.net
-  tags:
+  tags: []
+  tags_raw:
   - Operations for Checking the Status of the Service
   properties:
   - type: OpenAPI
