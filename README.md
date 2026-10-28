@@ -64,32 +64,172 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Acuant is an identity verification and document authentication platform offering REST APIs and SDKs for ID capture, document authentication, biometric face matching, and passive liveness detection. Founded in 1999 as Card Scanning Solutions and acquired by GB Group plc (GBG) in 2021 for $736 million, Acuant's technology supports AML, KYC, and identity proofing workflows across financial services, healthcare, hospitality, and government sectors.
+Acuant is an identity verification and document authentication platform offering REST APIs and SDKs for ID capture, document authentication, biometric face matching, and passive liveness detection. Originally founded in 1999 as Card Scanning Solutions and acquired by GB Group plc (GBG) in 2021, Acuant's services support AML, KYC, and identity proofing workflows across financial services, healthcare, hospitality, and government sectors. Core APIs include AssureID Connect for document processing, FRM for facial recognition and face matching, Passive Liveness for presentation attack detection, ACAS for cloud authentication, and Ozone for digital identity trust. SDKs are available for iOS, Android, and JavaScript web applications.
 
-## APIs
+**Areas:** Identity Verification · Document Authentication · Biometrics · Face Matching · Liveness Detection · KYC · AML · ID Capture
 
-- **AssureID Connect** — Document identity verification REST API supporting 3,400+ global document types (driver's licenses, passports, national IDs). Endpoints: `services.assureid.net`
-- **FRM (Face Recognition and Matching)** — Biometric face match API comparing document photo to live selfie capture. Endpoints: `frm.acuant.net` (USA), `eu.frm.acuant.net` (EU), `aus.frm.acuant.net` (AUS)
-- **Passive Liveness** — ISO/IEC 30107-3 compliant liveness detection with iBeta PAD Level 1 and Level 2 certification. Endpoints: `us.passlive.acuant.net`
-- **ACAS (Cloud Authentication Service)** — Token issuance and credential management. Endpoints: `us.acas.acuant.net`, `eu.acas.acuant.net`, `aus.acas.acuant.net`
-- **Ozone** — Digital identity trust scoring. Endpoints: `ozone.acuant.net`
+## Acuant on APIs.io
 
-## SDKs
+Everything profiled for Acuant is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/acuant/](https://apis.io/providers/acuant/)** — or go straight to one of the APIs or properties below.
 
-- iOS SDK V11: https://github.com/Acuant/iOSSDKV11
-- Android SDK V11: https://github.com/Acuant/AndroidSDKV11
-- JavaScript Web SDK V11: https://github.com/Acuant/JavascriptWebSDKV11 (support mode through May 2026)
+### APIs (13)
 
-## Authentication
+- [Acuant AssureID Connect API](https://apis.io/apis/acuant/assureid-connect/) — REST API for document identity verification. Supports creating document transactions, uploading multi-spectral images, extracting data fields, and…
+- [Acuant FRM Face Recognition API](https://apis.io/apis/acuant/frm/) — Face recognition and matching API that compares two facial images and returns a match score. Used alongside document verification to confirm the person…
+- [Acuant Passive Liveness API](https://apis.io/apis/acuant/passive-liveness/) — Liveness detection API that evaluates a selfie image for presentation attacks including printed photos, masks, deepfakes, and face-swap attacks. Returns…
+- [Acuant ACAS (Cloud Authentication Service) API](https://apis.io/apis/acuant/acas/) — Acuant Cloud Authentication Service (ACAS) provides authentication token management for initializing and authorizing SDK and API sessions. Supports Basic…
+- [Acuant Ozone API](https://apis.io/apis/acuant/ozone/) — Digital identity trust API derived from Acuant's acquisition of Ozone from Mount Airy Group. Provides additional identity intelligence and trust scoring…
+- [Acuant Authentication API](https://apis.io/apis/acuant/acuant-authentication-api/) — Token issuance and validation
+- [Acuant Chip Data API](https://apis.io/apis/acuant/acuant-chip-data-api/) — Submit and retrieve contactless chip data
+- [Acuant Document Data API](https://apis.io/apis/acuant/acuant-document-data-api/) — Upload and retrieve extracted document data
+- [Acuant Document Instances API](https://apis.io/apis/acuant/acuant-document-instances-api/) — Create and manage document processing sessions
+- [Acuant Face Match API](https://apis.io/apis/acuant/acuant-face-match-api/) — Facial comparison and matching operations
+- [Acuant Images API](https://apis.io/apis/acuant/acuant-images-api/) — Submit and retrieve document images
+- [Acuant Liveness API](https://apis.io/apis/acuant/acuant-liveness-api/) — Passive liveness detection operations
+- [Acuant Metadata API](https://apis.io/apis/acuant/acuant-metadata-api/) — Supported document types, subscriptions, logs
 
-APIs use HTTP Basic Authentication (Base64-encoded `username:password`) over HTTPS, with bearer token support via JWT. A Subscription ID is required for biometric API calls.
+### Published properties
 
-## Links
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- Website: https://www.acuant.com
-- Integrations: https://www.acuant.com/integrations/
-- GitHub: https://github.com/Acuant
-- Status: https://status.acuant.net/
-- Support: https://support.acuant.com
-- Store: https://store.acuant.com
-- LinkedIn: https://www.linkedin.com/company/acuant
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Acuant Agentic Access](https://apis.io/agentic-access/acuant/acuant-agentic-access/)
+
+#### JSON Schema (3)
+
+The data models the API reads and writes.
+
+- [Acuant Document](https://apis.io/schemas/acuant/acuant-document/)
+- [Acuant Face Match Result](https://apis.io/schemas/acuant/acuant-face-match-result/)
+- [Acuant Liveness Result](https://apis.io/schemas/acuant/acuant-liveness-result/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Acuant Context](https://apis.io/jsonld/acuant/acuant-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Acuant Vocabulary](https://apis.io/vocabularies/acuant/acuant-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Acuant Create Document Instance Example](https://apis.io/examples/acuant/acuant-create-document-instance-example/)
+- [Acuant Face Match Example](https://apis.io/examples/acuant/acuant-face-match-example/)
+- [Acuant Passive Liveness Example](https://apis.io/examples/acuant/acuant-passive-liveness-example/)
+
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [Acuant ACAS (Cloud Service) Authentication API](https://apis.io/collections/acuant/open-acuant-authentication-api/)
+- [Acuant ACAS (Cloud Service) Authentication Chip Data API](https://apis.io/collections/acuant/open-acuant-chip-data-api/)
+- [Acuant ACAS (Cloud Service) Authentication Document Data API](https://apis.io/collections/acuant/open-acuant-document-data-api/)
+- [Acuant ACAS (Cloud Service) Authentication Document Instances API](https://apis.io/collections/acuant/open-acuant-document-instances-api/)
+- [Acuant ACAS (Cloud Service) Authentication Face Match API](https://apis.io/collections/acuant/open-acuant-face-match-api/)
+- [Acuant ACAS (Cloud Service) Authentication Images API](https://apis.io/collections/acuant/open-acuant-images-api/)
+- [Acuant ACAS (Cloud Service) Authentication Liveness API](https://apis.io/collections/acuant/open-acuant-liveness-api/)
+- [Acuant ACAS (Cloud Service) Authentication Metadata API](https://apis.io/collections/acuant/open-acuant-metadata-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Acuant — jsonschema rules](https://apis.io/rules/acuant/acuant-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Acuant Authentication](https://apis.io/security/acuant/acuant-authentication/)
+- [Acuant Domain Security](https://apis.io/security/acuant/acuant-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Acuant Plans Pricing](https://apis.io/plans/acuant/acuant-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Acuant Rate Limits](https://apis.io/rate-limits/acuant/acuant-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Acuant Finops](https://apis.io/finops/acuant/acuant-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.acuant.com)
+- [Documentation](https://www.acuant.com/integrations/)
+- [Pricing](https://store.acuant.com/)
+- [Support](https://support.acuant.com)
+- [Blog](https://www.acuant.com/blog/)
+- [Status](https://status.acuant.net/)
+
+## API Evangelist rating
+
+**Kin Score 31.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 59.3 |
+| Contract governance | 9.8 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 16.7 |
+| Access clarity | 18.4 |
+
+**Agent readiness 26.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.0** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/acuant/](https://apis.io/providers/acuant/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Acuant: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/acuant/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
